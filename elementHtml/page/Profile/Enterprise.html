@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<!-- import CSS -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+			.clearfix > span {
+				font-weight: bolder;
+			}
+			.body-card {
+				height: 128px;
+				overflow: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div
+			style="position: fixed; z-index: -1; top: calc(50% - 15px); left: calc(50% - 50px); width: 100px; height: 30px"
+		>
+			加载中...
+		</div>
+		<div id="app" style="background-color: #fff" v-cloak>
+			<el-card class="box-card" shadow="never">
+				<div slot="header" class="clearfix">
+					<span>{{ basicData["customerName"]}}</span>
+					<!--  -->
+				</div>
+				<el-card class="box-card" shadow="never">
+					<div slot="header" class="clearfix">
+						<span>基础画像</span>
+						<!--  -->
+					</div>
+					<el-descriptions title="" :border="true" :column="3">
+						<el-descriptions-item label="企业名称">{{ basicData["customerName"]}}</el-descriptions-item>
+						<el-descriptions-item label="曾用名">{{ basicData["nameUsedBefore"]}}</el-descriptions-item>
+						<el-descriptions-item label="企业logo">
+							<el-image
+								style="width: 100px; height: 100px"
+								:src="basicData['enterpriseLogo'] ? basicData['enterpriseLogo'] : 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'"
+								:fit="'fit'"
+							></el-image
+						></el-descriptions-item>
+						<el-descriptions-item label="客户类型">{{ basicData["customerType"]}}</el-descriptions-item>
+						<el-descriptions-item label="企业状态">{{ basicData["enterpriseStatus"]}}</el-descriptions-item>
+						<el-descriptions-item label="分公司">{{ basicData["branchOffice"]}}</el-descriptions-item>
+						<el-descriptions-item label="入驻园区">{{ basicData["settlePark"]}}</el-descriptions-item>
+						<el-descriptions-item label="入驻时间">{{ basicData["settleDate"]}}</el-descriptions-item>
+						<el-descriptions-item label="办公面积">{{ basicData["officeArea"]}}</el-descriptions-item>
+						<el-descriptions-item label="来源渠道">{{ basicData["sourceChannel"]}}</el-descriptions-item>
+						<el-descriptions-item label="渠道商名称">{{ basicData["distributorName"]}}</el-descriptions-item>
+						<el-descriptions-item label="内部跟进人">{{ basicData["follower"]}}</el-descriptions-item>
+						<el-descriptions-item label="客户联系人">{{ basicData["enterpriseContact"]}}</el-descriptions-item>
+						<el-descriptions-item label="客户联系人部门">{{ basicData["enterpriseContact"]}}</el-descriptions-item>
+						<el-descriptions-item label="客户联系人职务">{{ basicData["enterpriseContactTitle"]}}</el-descriptions-item>
+						<el-descriptions-item label="客户联系人电话">{{ basicData["enterpriseContactPhone"]}}</el-descriptions-item>
+						<el-descriptions-item label="客户联系人QQ">{{ basicData["enterpriseContactQQ"]}}</el-descriptions-item>
+						<el-descriptions-item label="客户联系人邮箱">{{ basicData["enterpriseContactEmail"]}}</el-descriptions-item>
+						<el-descriptions-item label="公司电话">{{ basicData["companyOfficeNumber"]}}</el-descriptions-item>
+						<el-descriptions-item label="公司传真">{{ basicData["companyFax"]}}</el-descriptions-item>
+						<el-descriptions-item label="公司网址">{{ basicData["companyWebsite"]}}</el-descriptions-item>
+						<el-descriptions-item label="法定代表人">{{ basicData["legalRepresentative"]}}</el-descriptions-item>
+						<el-descriptions-item label="法人联系电话">{{ basicData["legalRepresentativePhone"]}}</el-descriptions-item>
+						<el-descriptions-item label="法人身份证"
+							>{{ basicData["legalRepresentativeIdCardNo"]}}</el-descriptions-item
+						>
+						<el-descriptions-item label="经营状态">{{ basicData["businessStatus"]}}</el-descriptions-item>
+						<el-descriptions-item label="成立日期">{{ basicData["incorporationDate"]}}</el-descriptions-item>
+						<el-descriptions-item label="注册资本">{{ basicData["registeredCapital"]}}</el-descriptions-item>
+						<el-descriptions-item label="实缴资本">{{ basicData["paidCapital"]}}</el-descriptions-item>
+						<el-descriptions-item label="工商注册号">{{ basicData["registrationNumber"]}}</el-descriptions-item>
+						<el-descriptions-item label="统一社会信用代码"
+							>{{ basicData["unifiedSocialCreditCode"]}}</el-descriptions-item
+						>
+						<el-descriptions-item label="纳税人识别号"
+							>{{ basicData["taxpayerIdentificationNumber"]}}</el-descriptions-item
+						>
+						<el-descriptions-item label="组织机构代码">{{ basicData["organizationCode"]}}</el-descriptions-item>
+						<el-descriptions-item label="营业期限">{{ basicData["businessTerm"]}}</el-descriptions-item>
+						<el-descriptions-item label="纳税人资质">{{ basicData["taxpayerQualification"]}}</el-descriptions-item>
+						<el-descriptions-item label="核准日期">{{ basicData["approvalDate"]}}</el-descriptions-item>
+						<el-descriptions-item label="企业类型">{{ basicData["enterpriseType"]}}</el-descriptions-item>
+						<el-descriptions-item label="行业">{{ basicData["industry"]}}</el-descriptions-item>
+						<el-descriptions-item label="人员规模">{{ basicData["personnelSize"]}}</el-descriptions-item>
+						<el-descriptions-item label="登记机关">{{ basicData["registrationAuthority"]}}</el-descriptions-item>
+						<el-descriptions-item label="英文名称" :span="3">{{ basicData["englishName"]}}</el-descriptions-item>
+						<el-descriptions-item label="注册地址" :span="3"
+							>{{ basicData["companyRegisteredAddress"]}}</el-descriptions-item
+						>
+						<el-descriptions-item label="服务外包企业"
+							>{{ basicData["serviceOutsourcingEnterprises"]}}</el-descriptions-item
+						>
+						<el-descriptions-item label="大学生创办企业">{{ basicData["isStudentFounded"]}}</el-descriptions-item>
+						<el-descriptions-item label="是否海归企业">{{ basicData["isReturnee"]}}</el-descriptions-item>
+						<el-descriptions-item label="是否高新技术企业">{{ basicData["isHighTech"]}}</el-descriptions-item>
+						<el-descriptions-item label="高新技术证书编号"
+							>{{ basicData["highTechCertificateNo"]}}</el-descriptions-item
+						>
+						<el-descriptions-item label="高新技术认定时间"
+							>{{ basicData["highTechattestationDate"]}}</el-descriptions-item
+						>
+						<el-descriptions-item label="上市情况">{{ basicData["listingSituation"]}}</el-descriptions-item>
+						<el-descriptions-item label="股票名称">{{ basicData["stockName"]}}</el-descriptions-item>
+						<el-descriptions-item label="股票代码">{{ basicData["stockCode"]}}</el-descriptions-item>
+						<el-descriptions-item label="创建来源">{{ basicData["createSource"]}}</el-descriptions-item>
+						<el-descriptions-item label="创建人">{{ basicData["createdBy"]}}</el-descriptions-item>
+						<el-descriptions-item label="创建时间">{{ basicData["createdDate"]}}</el-descriptions-item>
+						<el-descriptions-item label="最后修改来源">{{ basicData["lastModifiedSource"]}}</el-descriptions-item>
+						<el-descriptions-item label="最后修改人">{{ basicData["lastModifiedBy"]}}</el-descriptions-item>
+						<el-descriptions-item label="最后修改时间">{{ basicData["lastModifiedDate"]}}</el-descriptions-item>
+						<el-descriptions-item label="企业简介" :span="3">{{ basicData["companyProfile"]}}</el-descriptions-item>
+						<el-descriptions-item label="经营范围" :span="3">{{ basicData["BusinessScopes"]}}</el-descriptions-item>
+					</el-descriptions>
+					<br />
+					<el-card class="box-card" shadow="never">
+						<div slot="header" class="clearfix">
+							<span>员工</span>
+							<!--  -->
+							<div style="display: flex; width: 500px; justify-content: space-between">
+								<div>{{ `员工(${personnelInformation.data["companyResonNum"]})` }}</div>
+								<div>{{ `男员工：${personnelInformation.data["manNum"]}` }}</div>
+								<div>{{ `女员工：${personnelInformation.data["womanNum"]}` }}</div>
+								<div>
+									{{ `本地：${personnelInformation.data["companyResonNum"] - personnelInformation.data["fieldNum"]}` }}
+								</div>
+								<div>{{ `外地：${personnelInformation.data["fieldNum"]}` }}</div>
+							</div>
+						</div>
+						<el-row :gutter="20">
+							<el-col :span="12">
+								<div id="education" style="height: 400px"></div>
+							</el-col>
+							<el-col :span="12"> <div id="age" style="height: 400px"></div></el-col>
+						</el-row>
+					</el-card>
+					<br />
+					<el-row :gutter="20">
+						<el-col :span="8" style="margin-bottom: 10px">
+							<el-card class="box-card" shadow="never">
+								<div slot="header" class="clearfix">
+									<span>股东({{enterpriseShareholdersInfo.list.length}})</span>
+								</div>
+								<div class="body-card">
+									<el-table :data="enterpriseShareholdersInfo.list" style="margin-top: -40px !important">
+										<el-table-column prop="date" label="">
+											<template slot-scope="scope">
+												<el-avatar icon="el-icon-user-solid" :size="24"></el-avatar>
+											</template>
+										</el-table-column>
+										<el-table-column prop="name" label=""> </el-table-column>
+										<el-table-column prop="address" label=""> </el-table-column>
+									</el-table>
+								</div>
+							</el-card>
+						</el-col>
+						<el-col :span="8" style="margin-bottom: 10px">
+							<el-card class="box-card" shadow="never">
+								<div slot="header" class="clearfix">
+									<span>车位({{parkingInfo.list.length}})</span>
+								</div>
+								<div class="body-card">
+									<el-table :data="parkingInfo.list" style="margin-top: -40px !important">
+										<el-table-column prop="date" label="">
+											<template slot-scope="scope"> <el-avatar :size="20"> P </el-avatar> </template></el-table-column
+										>
+										<el-table-column prop="parkingSpaceNo" label=""> </el-table-column>
+										<el-table-column prop="holdingNature" label=""> </el-table-column>
+									</el-table>
+								</div>
+							</el-card>
+						</el-col>
+						<el-col :span="8" style="margin-bottom: 10px">
+							<el-card class="box-card" shadow="never">
+								<div slot="header" class="clearfix">
+									<span>车辆({{carInfo.list.length}})</span>
+								</div>
+								<div class="body-card">
+									<el-table :data="carInfo.list" style="margin-top: -40px !important">
+										<el-table-column prop="date" label="">
+											<template slot-scope="scope">
+												<i class="el-icon-truck"></i>
+											</template>
+										</el-table-column>
+										<el-table-column prop="carNumber" label=""> </el-table-column>
+										<el-table-column prop="isNewEnergy" label=""> </el-table-column>
+									</el-table>
+								</div>
+							</el-card>
+						</el-col>
+					</el-row>
+				</el-card>
+				<br />
+				<el-card class="box-card" shadow="never">
+					<div slot="header" class="clearfix">
+						<span>行为画像</span>
+						<!--  -->
+					</div>
+					<el-card class="box-card" shadow="never">
+						<div slot="header" class="clearfix">
+							<span>费项</span>
+							<!--  -->
+						</div>
+						<el-card class="box-card" shadow="never">
+							<div slot="header" class="clearfix">
+								<span>费用统计</span>
+								<!--  -->
+							</div>
+							<el-descriptions title="" :border="true">
+								<el-descriptions-item label="累计应缴">123</el-descriptions-item>
+								<el-descriptions-item label="累计已缴">123</el-descriptions-item>
+								<el-descriptions-item label="累计未缴">123</el-descriptions-item>
+							</el-descriptions>
+						</el-card>
+						<br />
+						<el-card class="box-card" shadow="never">
+							<div slot="header" class="clearfix">
+								<span>费项统计</span>
+								<!--  -->
+							</div>
+							<el-row :gutter="20">
+								<el-col :span="8"><div id="AccumulatedPayable" style="height: 400px"></div></el-col>
+								<el-col :span="8"><div id="AccumulatedPaid" style="height: 400px"></div></el-col>
+								<el-col :span="8"><div id="AccumulatedUnpaid" style="height: 400px"></div></el-col>
+							</el-row>
+						</el-card>
+						<br />
+						<el-row :gutter="20">
+							<el-col :span="12"
+								><el-card class="box-card" shadow="never">
+									<div slot="header" class="clearfix">
+										<span>用水趋势</span>
+										<!--  -->
+									</div>
+									<div id="WaterUsageTrends" style="height: 400px"></div> </el-card
+							></el-col>
+							<el-col :span="12"
+								><el-card class="box-card" shadow="never">
+									<div slot="header" class="clearfix">
+										<span>用电趋势</span>
+										<!--  -->
+									</div>
+									<div id="ElectricityConsumptionTrends" style="height: 400px"></div> </el-card
+							></el-col>
+						</el-row>
+					</el-card>
+					<br />
+					<el-card class="box-card" shadow="never">
+						<div slot="header" class="clearfix">
+							<span>账单查询</span>
+							<!--  -->
+						</div>
+						<el-table :data="tableData" :border="true" style="width: 100%">
+							<el-table-column prop="date" label="日期" width="180"> </el-table-column>
+							<el-table-column prop="name" label="姓名" width="180"> </el-table-column>
+							<el-table-column prop="address" label="地址"> </el-table-column>
+						</el-table>
+					</el-card>
+					<br />
+					<el-card class="box-card" shadow="never">
+						<div slot="header" class="clearfix">
+							<span>支付统计</span>
+							<!--  -->
+						</div>
+						<br />
+						<el-descriptions title="" :border="true">
+							<el-descriptions-item label="支付合计">kooriookami</el-descriptions-item>
+							<el-descriptions-item label="支出笔数">18100000000</el-descriptions-item>
+						</el-descriptions>
+						<br />
+						<el-card class="box-card" shadow="never">
+							<div slot="header" class="clearfix">
+								<span>支付趋势</span>
+								<!--  -->
+							</div>
+							<div id="PaymentTrends" style="height: 400px"></div>
+						</el-card>
+						<br />
+						<el-row :gutter="20">
+							<el-col :span="12">
+								<el-card class="box-card" shadow="never">
+									<div slot="header" class="clearfix">
+										<span>分类支出排行</span>
+										<!--  -->
+									</div>
+									<div id="RankingOfClassifiedExpenses" style="height: 400px"></div> </el-card></el-col
+							><el-col :span="12">
+								<el-card class="box-card" shadow="never">
+									<div slot="header" class="clearfix">
+										<span>支出排行</span>
+										<!--  -->
+									</div>
+									<div style="width: 100%; height: 400px; overflow: auto"></div>
+								</el-card>
+							</el-col>
+						</el-row>
+					</el-card>
+					<br />
+					<el-card class="box-card" shadow="never">
+						<div slot="header" class="clearfix">
+							<span>通行轨迹</span>
+							<!--  -->
+						</div>
+						<div id="TrafficTrend" style="height: 400px"></div>
+					</el-card>
+					<br />
+					<el-card class="box-card" shadow="never">
+						<div slot="header" class="clearfix">
+							<span>工单统计</span>
+							<!--  -->
+						</div>
+						<el-row :gutter="20">
+							<el-col :span="12"
+								><el-card class="box-card" shadow="never">
+									<div slot="header" class="clearfix">
+										<span>已完结</span>
+										<!--  -->
+									</div>
+									<div id="Completed" style="height: 400px"></div>
+								</el-card>
+							</el-col>
+							<el-col :span="12"
+								><el-card class="box-card" shadow="never">
+									<div slot="header" class="clearfix">
+										<span>未完结</span>
+										<!--  -->
+									</div>
+									<div id="unfinished" style="height: 400px"></div>
+								</el-card>
+							</el-col>
+						</el-row>
+					</el-card>
+					<br />
+					<el-card class="box-card" shadow="never">
+						<div slot="header" class="clearfix">
+							<span>客户轨迹</span>
+							<!--  -->
+						</div>
+						<el-table :data="tableData" :border="true" style="width: 100%">
+							<el-table-column prop="date" label="日期" width="180"> </el-table-column>
+							<el-table-column prop="name" label="姓名" width="180"> </el-table-column>
+							<el-table-column prop="address" label="地址"> </el-table-column>
+						</el-table>
+					</el-card>
+				</el-card>
+			</el-card>
+		</div>
+	</body>
+	<!-- import Vue before Element -->
+	<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+	<!-- import JavaScript -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<!-- ehcarts -->
+	<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.2/echarts.common.min.js"></script>
+	<!-- axios -->
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		// 月份
+		const lineX = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+		new Vue({
+			el: '#app',
+			data: function () {
+				return {
+					visible: false,
+					// 基础信息
+					basicData: {},
+					// 股东信息
+					enterpriseShareholdersInfo: {
+						list: [],
+						// 显示
+						showData: function (val = []) {
+							if (this.list.length) {
+								this.list.splice(0);
+							}
+							if (val.length) {
+								this.list.push(...val);
+							}
+						},
+					},
+					// 车位信息
+					parkingInfo: {
+						list: [],
+						// 显示
+						showData: function (val = []) {
+							if (this.list.length) {
+								this.list.splice(0);
+							}
+							if (val.length) {
+								this.list.push(...val);
+							}
+						},
+					},
+					// 车辆信息
+					carInfo: {
+						list: [],
+						// 显示
+						showData: function (val = []) {
+							if (this.list.length) {
+								this.list.splice(0);
+							}
+							if (val.length) {
+								this.list.push(...val);
+							}
+						},
+					},
+					// 人员信息
+					personnelInformation: {
+						data: {},
+						loadData: function (val = {}) {
+							this.data = val;
+						},
+						showEchart: function () {
+							const ageEle = document.getElementById('age');
+							const educationEle = document.getElementById('education');
+							this.educationEchart = echarts.init(educationEle);
+							this.ageEchart = echarts.init(ageEle);
+							this.educationOption.series.push({
+								data: [
+									this.data['phdsNum'] ?? 0,
+									this.data['masterNum'] ?? 0,
+									this.data['undergraduateNum'] ?? 0,
+									this.data['universitiesNum'] ?? 0,
+									this.data['universitiesDownNum'] ?? 0,
+									this.data['seaNum'] ?? 0,
+								],
+								type: 'bar',
+							});
+							this.ageOption.series.push({
+								data: [
+									this.data['yearold1625Num'] ?? 0,
+									this.data['yearold2635Num'] ?? 0,
+									this.data['yearold3645Num'] ?? 0,
+									this.data['yearold4655Num'] ?? 0,
+									this.data['yearoldUp55Num'] ?? 0,
+								],
+								type: 'line',
+								smooth: true,
+							});
+							this.educationEchart.setOption(this.educationOption);
+							this.ageEchart.setOption(this.ageOption);
+						},
+						// 学历
+						educationEchart: null,
+						educationOption: {
+							title: {
+								text: '学历分布',
+								left: 'center',
+							},
+							xAxis: {
+								type: 'category',
+								data: ['博士', '硕士', '本科', '大专', '大专以下', '海归人数'],
+							},
+							yAxis: {
+								type: 'value',
+							},
+							series: [],
+						},
+						// 年龄
+						ageEchart: null,
+						ageOption: {
+							title: {
+								text: '年龄分布',
+								left: 'center',
+							},
+							xAxis: {
+								type: 'category',
+								data: ['16岁-25岁', '26岁-35岁', '36岁-45岁', '46岁-55岁', '55岁以上'],
+							},
+							yAxis: {
+								type: 'value',
+							},
+							series: [],
+						},
+					},
+					//费项
+					fees: {
+						// 数据
+						data: {},
+						loadData: function (val = {}) {
+							this.data = val;
+						},
+						showEchart: function () {
+							const AccumulatedPayableEle = document.getElementById('AccumulatedPayable');
+							const AccumulatedPaidEle = document.getElementById('AccumulatedPaid');
+							const AccumulatedUnpaidEle = document.getElementById('AccumulatedUnpaid');
+							this.AccumulatedPaidEChart = echarts.init(AccumulatedPaidEle);
+							this.AccumulatedPayableEChart = echarts.init(AccumulatedPayableEle);
+							this.AccumulatedUnpaidEchart = echarts.init(AccumulatedUnpaidEle);
+							this.AccumulatedPaidEChart.setOption(this.option);
+							this.AccumulatedPayableEChart.setOption(this.option);
+							this.AccumulatedUnpaidEchart.setOption(this.option);
+						},
+						// AccumulatedPayable 累计应交
+						AccumulatedPayableEChart: null,
+						// AccumulatedPaid 累计已交
+						AccumulatedPaidEChart: null,
+						// AccumulatedUnpaid 累计未交
+						AccumulatedUnpaidEchart: null,
+						option: {
+							tooltip: {
+								trigger: 'item',
+							},
+							legend: {
+								top: '5%',
+								left: 'center',
+							},
+							series: [
+								{
+									name: 'Access From',
+									type: 'pie',
+									radius: ['40%', '70%'],
+									avoidLabelOverlap: false,
+									itemStyle: {
+										borderRadius: 10,
+										borderColor: '#fff',
+										borderWidth: 2,
+									},
+									label: {
+										show: false,
+										position: 'center',
+									},
+									emphasis: {
+										label: {
+											show: true,
+											fontSize: 40,
+											fontWeight: 'bold',
+										},
+									},
+									labelLine: {
+										show: false,
+									},
+									data: [
+										{ value: 1048, name: 'Search Engine' },
+										{ value: 735, name: 'Direct' },
+										{ value: 580, name: 'Email' },
+										{ value: 484, name: 'Union Ads' },
+										{ value: 300, name: 'Video Ads' },
+									],
+								},
+							],
+						},
+					},
+					// 用水趋势
+					WaterChart: null,
+					// 用电趋势
+					ElectricityChart: null,
+					WaterOption: {
+						xAxis: {
+							type: 'category',
+							data: lineX,
+						},
+						yAxis: {
+							type: 'value',
+						},
+						series: [
+							{
+								data: [820, 932, 901, 934, 1290, 1330, 1320],
+								type: 'line',
+								smooth: true,
+							},
+						],
+					},
+					ElectricityOption: {
+						xAxis: {
+							type: 'category',
+							data: lineX,
+						},
+						yAxis: {
+							type: 'value',
+						},
+						series: [
+							{
+								data: [820, 932, 901, 934, 1290, 1330, 1320],
+								type: 'line',
+								smooth: true,
+							},
+						],
+					},
+
+					// 支付趋势
+					PaymentTrendsEchart: null,
+					PaymentTrendsOption: {
+						xAxis: {
+							type: 'category',
+							data: lineX,
+						},
+						yAxis: {
+							type: 'value',
+						},
+						series: [
+							{
+								data: [820, 932, 901, 934, 1290, 1330, 1320],
+								type: 'line',
+								smooth: true,
+							},
+						],
+					},
+					// TrafficTrend 通行趋势
+					TrafficTrendEchart: null,
+					TrafficTrendOption: {
+						xAxis: {
+							type: 'category',
+							data: lineX,
+						},
+						yAxis: {
+							type: 'value',
+						},
+						series: [
+							{
+								data: [820, 932, 901, 934, 1290, 1330, 1320],
+								type: 'line',
+								smooth: true,
+							},
+						],
+					},
+					// 已完结
+					completedEchart: null,
+					completedOption: {
+						xAxis: {
+							type: 'category',
+							data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+						},
+						yAxis: {
+							type: 'value',
+						},
+						series: [
+							{
+								data: [120, 200, 150, 80, 70, 110, 130],
+								type: 'bar',
+							},
+						],
+					},
+					// 未完结
+					unfinishedEchrat: null,
+					unfinishedOption: {
+						title: {
+							text: 'Referer of a Website',
+							subtext: 'Fake Data',
+							left: 'center',
+						},
+						tooltip: {
+							trigger: 'item',
+						},
+						legend: {
+							orient: 'vertical',
+							left: 'left',
+						},
+						series: [
+							{
+								name: 'Access From',
+								type: 'pie',
+								radius: '50%',
+								data: [
+									{ value: 1048, name: 'Search Engine' },
+									{ value: 735, name: 'Direct' },
+									{ value: 580, name: 'Email' },
+									{ value: 484, name: 'Union Ads' },
+									{ value: 300, name: 'Video Ads' },
+								],
+								emphasis: {
+									itemStyle: {
+										shadowBlur: 10,
+										shadowOffsetX: 0,
+										shadowColor: 'rgba(0, 0, 0, 0.5)',
+									},
+								},
+							},
+						],
+					},
+					// RankingOfClassifiedExpenses 分类支出排行
+					RankingOfClassifiedExpensesEchart: null,
+					RankingOfClassifiedExpensesOption: {
+						title: {
+							text: 'Referer of a Website',
+							subtext: 'Fake Data',
+							left: 'center',
+						},
+						tooltip: {
+							trigger: 'item',
+						},
+						legend: {
+							orient: 'vertical',
+							left: 'left',
+						},
+						series: [
+							{
+								name: 'Access From',
+								type: 'pie',
+								radius: '50%',
+								data: [
+									{ value: 1048, name: 'Search Engine' },
+									{ value: 735, name: 'Direct' },
+									{ value: 580, name: 'Email' },
+									{ value: 484, name: 'Union Ads' },
+									{ value: 300, name: 'Video Ads' },
+								],
+								emphasis: {
+									itemStyle: {
+										shadowBlur: 10,
+										shadowOffsetX: 0,
+										shadowColor: 'rgba(0, 0, 0, 0.5)',
+									},
+								},
+							},
+						],
+					},
+					tableData: [
+						{
+							date: '2016-05-02',
+							name: '王小虎',
+							address: '上海市普陀区金',
+						},
+						{
+							date: '2016-05-04',
+							name: '王小虎',
+							address: '上海市普陀区金沙',
+						},
+						{
+							date: '2016-05-01',
+							name: '王小虎',
+							address: '上海市普陀区金',
+						},
+						{
+							date: '2016-05-03',
+							name: '王小虎',
+							address: '上海市普陀区金',
+						},
+					],
+					// 获取基础信息
+					getBasicInfo: function () {
+						axios({
+							method: 'post',
+							url: 'http://localhost:8088/api/customer/showCustomerView',
+							data: { userId: '1', roleId: 3, token: 'ugdcsaggdfsdfuas12eg2' },
+							Headers: { 'Content-Type': 'application/json' },
+						}).then(
+							(
+								res = {
+									data: {
+										data: {
+											basicInfo,
+											roomInfo,
+											parkingInfo,
+											carInfo,
+											members,
+											contractInfo,
+											accountInfo,
+											customerOrgVo,
+											enterpriseEmployees,
+										},
+									},
+								}
+							) => {
+								// console.log(res.data.data);
+								if (res.data) {
+									console.log(res.data);
+									this.basicData = res.data.basicInfo;
+									this.parkingInfo.showData(res.data.parkingInfo);
+									this.carInfo.showData(res.data.carInfo);
+									this.enterpriseShareholdersInfo.showData(res.data.enterpriseEmployees);
+									this.personnelInformation.loadData(res.data.customerOrgVo);
+									this.personnelInformation.showEchart();
+									this.fees.showEchart();
+								}
+								// this.roomInfo.showData(res.data.data.roomInfo);
+								// this.householdInfo.showData(res.data.data.members);
+								// this.parkingInfo.showData(res.data.data.parkingInfo);
+								// this.carInfo.showData(res.data.data.carInfo);
+								// this.basicData = res.data.data.basicInfo;
+								// this.roomInfoTable.loadData(res.data.data.roomInfo);
+								// this.parking.loadData(res.data.data.parkingInfo);
+								// this.carInfo.loadData(res.data.data.carInfo);
+								// this.membersInfo.loadData(res.data.data.members);
+								// this.contractInfo.loadData(res.data.data.contractInfo);
+								// this.accountInfo.loadData(res.data.data.accountInfo);
+							}
+						);
+					},
+				};
+			},
+			created: function () {
+				console.log('created');
+			},
+			mounted: function () {
+				this.getBasicInfo();
+				// this.personnelInformation.loadData();
+
+				const wEle = document.getElementById('WaterUsageTrends');
+				const eEle = document.getElementById('ElectricityConsumptionTrends');
+				this.WaterChart = echarts.init(wEle);
+				this.WaterChart.setOption(this.WaterOption);
+				this.ElectricityChart = echarts.init(eEle);
+				this.ElectricityChart.setOption(this.ElectricityOption);
+
+				const PaymentTrendsEle = document.getElementById('PaymentTrends');
+				this.PaymentTrendsEchart = echarts.init(PaymentTrendsEle);
+				this.PaymentTrendsEchart.setOption(this.PaymentTrendsOption);
+
+				// TrafficTrend
+				const TrafficTrendEle = document.getElementById('TrafficTrend');
+				this.TrafficTrendEchart = echarts.init(TrafficTrendEle);
+				this.TrafficTrendEchart.setOption(this.TrafficTrendOption);
+				// Completed
+				const CompletedEle = document.getElementById('Completed');
+				this.completedEchart = echarts.init(CompletedEle);
+				this.completedEchart.setOption(this.completedOption);
+				// Completed
+				const unfinishedEle = document.getElementById('unfinished');
+				this.unfinishedEchart = echarts.init(unfinishedEle);
+				this.unfinishedEchart.setOption(this.unfinishedOption);
+				// Completed
+				const RankingOfClassifiedExpensesEle = document.getElementById('RankingOfClassifiedExpenses');
+				this.RankingOfClassifiedExpensesEchart = echarts.init(RankingOfClassifiedExpensesEle);
+				this.RankingOfClassifiedExpensesEchart.setOption(this.RankingOfClassifiedExpensesOption);
+				console.log('mounted');
+			},
+		});
+	</script>
+</html>

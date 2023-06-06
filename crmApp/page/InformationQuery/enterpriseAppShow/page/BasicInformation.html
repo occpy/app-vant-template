@@ -10,30 +10,37 @@
 	</head>
 	<body>
 		<div id="app">
-			<van-nav-bar title="企业档案" left-text="" left-arrow @click-left="() => onClickLeft()"></van-nav-bar>
+			<van-nav-bar
+				:placeholder="true"
+				:fixed="true"
+				title="企业档案"
+				left-text=""
+				left-arrow
+				@click-left="() => onClickLeft()"
+			></van-nav-bar>
 			<van-cell-group>
 				<van-cell title="xxx有限公司" value="">
 					<template #label
 						><div style="height: 30px; display: flex; flex-direction: column; justify-content: space-around">
-							<span>描述信息</span><span>sdadasds</span>
+							<span>描述信息</span><span>企业状态:正常</span>
 						</div></template
 					></van-cell
 				>
-				<van-cell>
-					<van-grid>
-						<van-grid-item icon="photo-o" text="基本信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="人员信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="合同信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="房间信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="车位信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="车辆信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="费用信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="服务信息"></van-grid-item>
-					</van-grid>
-				</van-cell>
-				<van-cell title="联系信息"> </van-cell>
-				<van-cell title="xxx" value="1231312313"> </van-cell>
-				<van-cell value="1231312313@123.com"> </van-cell>
+				<van-cell title="内部跟进人" value="暂无数据"> </van-cell>
+				<van-cell title="注册地址" value="暂无数据"> </van-cell>
+				<van-cell title="企业联系人" value="暂无数据"> </van-cell>
+				<van-cell title="联系人电话" value="暂无数据"> </van-cell>
+				<van-cell title="联系人邮箱" value="暂无数据"> </van-cell>
+				<van-cell title="法人代表" value="暂无数据"> </van-cell>
+				<van-cell title="注册资本" value="暂无数据"> </van-cell>
+				<van-cell title="入驻时间" value="暂无数据"> </van-cell>
+				<van-cell title="入驻园区" value="暂无数据"> </van-cell>
+				<van-cell title="办公面积" value="暂无数据"> </van-cell>
+				<van-cell title="高新技术认定时间" value="暂无数据"> </van-cell>
+				<van-cell title="上市情况" value="暂无数据"> </van-cell>
+				<van-cell title="上市时间" value="暂无数据"> </van-cell>
+				<van-cell title="企业简介" value="暂无数据"> </van-cell>
+				<van-cell title="经营范围" value="暂无数据"> </van-cell>
 			</van-cell-group>
 			<!-- <van-button @click="handelChange">按钮</van-button>
 			{{count}} -->

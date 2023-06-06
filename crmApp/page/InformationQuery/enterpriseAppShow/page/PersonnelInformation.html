@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
+		<title>客户 -- 企业人员信息</title>
+	</head>
+	<body>
+		<div id="app">
+			<van-nav-bar
+				:placeholder="true"
+				:fixed="true"
+				title="人员信息"
+				left-text=""
+				left-arrow
+				@click-left="() => onClickLeft()"
+			></van-nav-bar>
+			<div
+				style="
+					background: rgb(33, 42, 49);
+					width: 100%;
+					height: 280px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				"
+			>
+				<div
+					style="
+						width: 200px;
+						height: 200px;
+						background-color: rgba(255, 255, 255, 0.1);
+						border-radius: 100px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					"
+				>
+					<div
+						style="
+							background-color: rgb(0, 0, 0);
+							width: 170px;
+							height: 170px;
+							border-radius: 85px;
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+							justify-content: center;
+							color: aliceblue;
+						"
+					>
+						<span style="font-size: 40px">0</span>
+						<span>人员总数</span>
+					</div>
+				</div>
+			</div>
+			<van-cell-group>
+				<van-cell title="" value="暂无数据">
+					<template #title><van-tag type="primary" color="rgb(247,174,108)" size="large">博士</van-tag> </template>
+				</van-cell>
+				<van-cell title="" value="暂无数据"
+					><template #title><van-tag type="primary" color="rgb(241,84,95)" size="large">硕士</van-tag> </template>
+				</van-cell>
+				<van-cell title="" value="暂无数据">
+					<template #title
+						><van-tag type="primary" color="rgb(62,212,108)" size="large">学士</van-tag>
+					</template></van-cell
+				>
+				<van-cell title="" value="暂无数据"
+					><template #title><van-tag type="primary" color="rgb(97,205,182)" size="large">大专</van-tag> </template>
+				</van-cell>
+				<van-cell title="" value="暂无数据">
+					<template #title
+						><van-tag type="primary" color="rgb(197,230,223)" size="large">大专以下</van-tag>
+					</template></van-cell
+				>
+			</van-cell-group>
+			<!-- <van-button @click="handelChange">按钮</van-button>
+			{{count}} -->
+		</div>
+		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
+		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
+		<script src="https://fastly.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
+		<script>
+			// 在 #app 标签下渲染一个按钮组件
+			const app = Vue.createApp({
+				data() {
+					return {
+						count: 0,
+						handelChange: () => {
+							this.count = 1;
+						},
+						onClickLeft: () => {},
+					};
+				},
+			});
+			app.use(vant);
+
+			// 通过 CDN 引入时不会自动注册 Lazyload 组件
+			// 可以通过下面的方式手动注册
+			app.use(vant.Lazyload);
+
+			// 调用工具函数，弹出一个 Toast
+			// vant.showToast('提示');
+
+			app.mount('#app');
+		</script>
+	</body>
+</html>

@@ -7,11 +7,56 @@
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
 		<title>客户信息查询</title>
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
 	</head>
 	<body>
-		<div id="app">
-			<van-button @click="handelChange">按钮</van-button>
-			{{count}}
+		<div id="app" v-cloak>
+			<van-row>
+				<van-col span="24"
+					><van-dropdown-menu>
+						<van-dropdown-item v-model="dropdownDo.value1" :options="dropdownDo.option1"></van-dropdown-item>
+						<van-dropdown-item
+							v-model="dropdownDo.value2"
+							:options="dropdownDo.option2"
+						></van-dropdown-item> </van-dropdown-menu
+				></van-col>
+				<van-col span="24"
+					><van-search
+						v-model="searchDo.searchValue"
+						@search="() => searchDo.searchfun()"
+						placeholder="请输入搜索关键词"
+				/></van-col>
+				<van-col span="6">
+					<van-sidebar v-model="sidebarDo.active" style="width: 100%">
+						<van-sidebar-item title="全部"></van-sidebar-item>
+						<van-sidebar-item title="互联网"></van-sidebar-item>
+						<van-sidebar-item title="金融业"></van-sidebar-item>
+						<van-sidebar-item title="制造业"></van-sidebar-item>
+						<van-sidebar-item title="保险业"></van-sidebar-item> </van-sidebar
+				></van-col>
+				<van-col span="18"
+					><van-list
+						style="height: 83vh; overflow: auto"
+						v-model:loading="sidebarDo.loading"
+						:finished="sidebarDo.finished"
+						finished-text="没有更多了"
+						@load="() => sidebarDo.onLoad()"
+					>
+						<van-cell v-for="item in sidebarDo.list" :key="item" :title="item" label="入园时间:">
+							<template v-slot:value>
+								<van-tag type="primary" size="large">正常</van-tag>
+							</template>
+						</van-cell>
+					</van-list></van-col
+				>
+			</van-row>
+
+			<!-- <van-button @click="handelChange">按钮</van-button> -->
+			<!-- {{count}} -->
 		</div>
 		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
@@ -22,8 +67,50 @@
 				data() {
 					return {
 						count: 0,
+						checked: '1',
+
 						handelChange: () => {
 							this.count = 1;
+						},
+						dropdownDo: {
+							value1: 0,
+							value2: 0,
+							option1: [
+								{ text: '企业客户', value: 0 },
+								{ text: '个人客户', value: 1 },
+							],
+							option2: [
+								{ text: '在园', value: 0 },
+								{ text: '退园', value: 1 },
+							],
+						},
+						searchDo: {
+							searchValue: '',
+							searchfun: function () {
+								console.log(this.searchValue);
+							},
+						},
+						sidebarDo: {
+							active: 0,
+							list: [],
+							loading: false,
+							finished: false,
+							onLoad: function () {
+								console.log(this.list);
+								// 异步更新数据
+								// setTimeout 仅做示例，真实场景中一般为 ajax 请求
+								setTimeout(() => {
+									for (let i = 0; i < 10; i++) {
+										this.list.push(this.list.length + 1);
+									}
+									// 加载状态结束
+									this.loading = false;
+									// 数据全部加载完成
+									if (this.list.length >= 40) {
+										this.finished = true;
+									}
+								}, 1000);
+							},
 						},
 					};
 				},

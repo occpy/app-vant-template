@@ -8,6 +8,9 @@
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
 		<title>Document</title>
 		<style>
+			body {
+				background-color: rgb(239, 239, 239);
+			}
 			[v-cloak] {
 				display: none !important;
 			}
@@ -16,20 +19,20 @@
 	<body>
 		<div id="app" v-cloak>
 			<van-nav-bar
-				title="信息"
+				title="个人资产"
 				left-text=""
 				:fixed="true"
 				:placeholder="true"
 				left-arrow
 				@click-left="onClickLeft"
 			></van-nav-bar>
-			<van-row>
+			<!-- <van-row>
 				<van-col span="8">span: 8</van-col>
 				<van-col span="8">span: 8</van-col>
 				<van-col span="8">span: 8</van-col>
 			</van-row>
 			<van-button @click="handelChange">按钮</van-button>
-			{{count}}
+			{{count}} -->
 		</div>
 		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>

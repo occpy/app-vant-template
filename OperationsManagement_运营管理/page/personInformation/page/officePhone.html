@@ -16,7 +16,7 @@
 	<body>
 		<div id="app" v-cloak>
 			<van-nav-bar
-				title="修改联系地址"
+				title="修改办公电话"
 				left-text=""
 				:fixed="true"
 				:placeholder="true"
@@ -26,11 +26,11 @@
 			<van-form @submit="onSubmit">
 				<van-cell-group inset>
 					<van-field
-						v-model="address"
-						name="address"
-						label="联系地址"
-						placeholder="联系地址"
-						:rules="[{ required: true, message: '请填写联系地址' }]"
+						v-model="officePhone"
+						name="officePhone"
+						label="办公电话"
+						placeholder="办公电话"
+						:rules="[{ required: true, message: '请填写办公电话' }]"
 					></van-field>
 				</van-cell-group>
 				<div style="margin: 16px">
@@ -50,12 +50,12 @@
 						onClickLeft: () => {
 							window.history.back();
 						},
-						address: '',
+						officePhone: '',
 					};
 				},
 				methods:{
 						onSubmit(){
-							console.log(this.address);
+							console.log(this.officePhone);
 						},
 					}
 			});

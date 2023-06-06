@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
+		<title>Document</title>
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<van-nav-bar
+				title="修改邮箱地址"
+				left-text=""
+				:fixed="true"
+				:placeholder="true"
+				left-arrow
+				@click-left="onClickLeft"
+			></van-nav-bar>
+			<van-form @submit="onSubmit">
+				<van-cell-group inset>
+					<van-field
+						v-model="email"
+						name="email"
+						label="邮箱地址"
+						placeholder="邮箱地址"
+						:rules="[{ required: true, message: '请填写邮箱地址' }]"
+					></van-field>
+				</van-cell-group>
+				<div style="margin: 16px">
+					<van-button round block type="primary" native-type="submit"> 提交 </van-button>
+				</div>
+			</van-form>
+		</div>
+
+		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
+		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
+		<script src="https://fastly.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
+		<script>
+			// 在 #app 标签下渲染一个按钮组件
+			const app = Vue.createApp({
+				data() {
+					return {
+						onClickLeft: () => {
+							window.history.back();
+						},
+						email: '',
+					};
+				},
+				methods:{
+						onSubmit(){
+							console.log(this.email);
+						},
+					}
+			});
+			app.use(vant);
+			// 通过 CDN 引入时不会自动注册 Lazyload 组件
+			// 可以通过下面的方式手动注册
+			app.use(vant.Lazyload);
+
+			// 调用工具函数，弹出一个 Toast
+			// vant.showToast('提示');
+			app.mount('#app');
+		</script>
+	</body>
+</html>

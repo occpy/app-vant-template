@@ -6,25 +6,40 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
-		<title>Document</title>
+		<title>选择区域</title>
+		<style>
+			body {
+				background-color: rgb(239, 239, 239);
+			}
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="app" v-cloak>
 			<van-nav-bar
-				title="信息"
+				title="选择区域"
 				left-text=""
 				:fixed="true"
 				:placeholder="true"
 				left-arrow
 				@click-left="onClickLeft"
 			></van-nav-bar>
-			<van-row>
+			<van-sticky :offset-top="46"
+				><van-search v-model="searchValue" placeholder="请输入区域名称"></van-search
+			></van-sticky>
+
+			<van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+				<van-cell v-for="item in list" :key="item" :title="item" is-link></van-cell>
+			</van-list>
+			<!-- <van-row>
 				<van-col span="8">span: 8</van-col>
 				<van-col span="8">span: 8</van-col>
 				<van-col span="8">span: 8</van-col>
 			</van-row>
 			<van-button @click="handelChange">按钮</van-button>
-			{{count}}
+			{{count}} -->
 		</div>
 		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
@@ -39,6 +54,27 @@
 							this.count = 1;
 						},
 						onClickLeft: () => {},
+						searchValue: '',
+						list: [],
+						loading: false,
+						finished: false,
+						onLoad: () => {
+							// 异步更新数据
+							// setTimeout 仅做示例，真实场景中一般为 ajax 请求
+							setTimeout(() => {
+								for (let i = 0; i < 10; i++) {
+									this.list.push(this.list.length + 1);
+								}
+
+								// 加载状态结束
+								this.loading = false;
+
+								// 数据全部加载完成
+								if (this.list.length >= 40) {
+									this.finished = true;
+								}
+							}, 1000);
+						},
 					};
 				},
 			});

@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
-		<title>客户 -- 企业合同详情</title>
+		<title>客户 -- 个人客户档案</title>
 		<style>
 			[v-cloak] {
 				display: none !important;
@@ -18,24 +18,34 @@
 			<van-nav-bar
 				:placeholder="true"
 				:fixed="true"
-				title="合同详情"
+				title="个人档案"
 				left-text=""
 				left-arrow
 				@click-left="() => onClickLeft()"
 			></van-nav-bar>
 			<van-cell-group>
-				<van-cell title="合同类型" value="暂无数据"> </van-cell>
-				<van-cell title="合同编号" value="暂无数据"> </van-cell>
-				<van-cell title="合同名称" value="暂无数据"> </van-cell>
-				<van-cell title="联系人" value="暂无数据"> </van-cell>
-				<van-cell title="联系人电话" value="暂无数据"> </van-cell>
-				<van-cell title="签订日期" value="暂无数据"> </van-cell>
-				<van-cell title="起始日期" value="暂无数据"> </van-cell>
-				<van-cell title="到期日期" value="暂无数据"> </van-cell>
-				<van-cell title="合同状态" value="暂无数据"> </van-cell>
-				<van-cell title="合同登记人" value="暂无数据"> </van-cell>
-				<van-cell title="合同登记系统" value="暂无数据"> </van-cell>
-				<van-cell title="备注" value="暂无数据"> </van-cell>
+				<van-cell title="xxx有限公司" value="">
+					<template #label
+						><div style="height: 30px; display: flex; flex-direction: column; justify-content: space-around">
+							<span>客户类型：业主/租户</span><span>在园状态：在园</span>
+						</div></template
+					></van-cell
+				>
+				<van-cell title="内部跟进人" value="暂无数据"> </van-cell>
+				<van-cell title="姓名" value="暂无数据"> </van-cell>
+				<van-cell title="性别" value="暂无数据"> </van-cell>
+				<van-cell title="身份证号码" value="暂无数据"> </van-cell>
+				<van-cell title="联系电话" value="暂无数据"> </van-cell>
+				<van-cell title="联系地址" value="暂无数据"> </van-cell>
+				<van-cell title="个人邮箱" value="暂无数据"> </van-cell>
+				<van-cell title="职业" value="暂无数据"> </van-cell>
+				<van-cell title="紧急联系人" value="暂无数据"> </van-cell>
+				<van-cell title="紧急联系人电话" value="暂无数据"> </van-cell>
+				<van-cell title="业主姓名" value="暂无数据"> </van-cell>
+				<van-cell title="业主联系电话" value="暂无数据"> </van-cell>
+				<van-cell title="高新技术认定时间" value="暂无数据"> </van-cell>
+				<van-cell title="入驻园区" value="暂无数据"> </van-cell>
+				<van-cell title="入驻时间" value="暂无数据"> </van-cell>
 			</van-cell-group>
 			<!-- <van-button @click="handelChange">按钮</van-button>
 			{{count}} -->

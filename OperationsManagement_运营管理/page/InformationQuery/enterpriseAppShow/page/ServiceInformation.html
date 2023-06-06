@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
+		<title>服务信息</title>
+		<style>
+			body {
+				background-color: rgb(226, 226, 226);
+			}
+			#totalShow {
+				background-color: rgb(48, 90, 95);
+				width: 100%;
+				height: 198px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-direction: column;
+				padding: 25px 0 10px 0;
+				box-sizing: border-box;
+			}
+			h1 {
+				margin: 0 auto;
+				padding: 0;
+			}
+			h4 {
+				margin: 0 auto;
+				padding: 0;
+			}
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<van-nav-bar
+				title="服务信息"
+				left-text=""
+				:fixed="true"
+				:placeholder="true"
+				left-arrow
+				@click-left="onClickLeft"
+			></van-nav-bar>
+			<div id="totalShow">
+				<div
+					style="
+						width: 100%;
+						height: auto;
+						display: flex;
+						align-items: center;
+						flex-direction: column;
+						justify-items: center;
+						color: #fff;
+					"
+				>
+					<h1>1213</h1>
+					<h4>总数</h4>
+				</div>
+				<div style="display: flex; width: 100%">
+					<div
+						style="
+							flex: 1;
+							height: 50px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							flex-direction: column;
+							color: #fff;
+						"
+					>
+						<span>1</span>
+						<span>待处理</span>
+					</div>
+					<div
+						style="
+							flex: 1;
+							height: 50px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							flex-direction: column;
+							color: #fff;
+							border-left: #fff 1px solid;
+							border-right: #fff 1px solid;
+						"
+					>
+						<span>1</span> <span>处理中</span>
+					</div>
+					<div
+						style="
+							flex: 1;
+							height: 50px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							flex-direction: column;
+							color: #fff;
+						"
+					>
+						<span>1</span> <span>已完成</span>
+					</div>
+				</div>
+			</div>
+			<!-- <van-cell title="累计缴纳总计" value="">
+				<template #label>
+					<div style="width: calc(100vw - 36px); height: 50px; display: flex; color: #000">
+						<div
+							style="
+								flex: 1;
+								height: 50px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								flex-direction: column;
+							"
+						>
+							<span>1元</span>
+							<span>租金费用</span>
+						</div>
+						<div
+							style="
+								flex: 1;
+								height: 50px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								flex-direction: column;
+								box-sizing: border-box;
+								border-left: #000 1px solid;
+								border-right: #000 1px solid;
+							"
+						>
+							<span>1元</span> <span>物业费费用</span>
+						</div>
+						<div
+							style="
+								flex: 1;
+								height: 50px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								flex-direction: column;
+							"
+						>
+							<span>1元</span> <span>其他费用总计</span>
+						</div>
+					</div>
+				</template>
+			</van-cell>
+			<van-cell title="未缴纳总计" value="">
+				<template #label>
+					<div style="width: calc(100vw - 36px); height: 50px; display: flex; color: #000">
+						<div
+							style="
+								flex: 1;
+								height: 50px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								flex-direction: column;
+							"
+						>
+							<span>1元</span>
+							<span>租金费用</span>
+						</div>
+						<div
+							style="
+								flex: 1;
+								height: 50px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								flex-direction: column;
+								box-sizing: border-box;
+								border-left: #000 1px solid;
+								border-right: #000 1px solid;
+							"
+						>
+							<span>1元</span> <span>物业费费用</span>
+						</div>
+						<div
+							style="
+								flex: 1;
+								height: 50px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								flex-direction: column;
+							"
+						>
+							<span>1元</span> <span>其他费用总计</span>
+						</div>
+					</div>
+				</template>
+			</van-cell>
+			<van-cell title="滞纳金总计" value="">
+				<template #label>
+					<div style="width: calc(100vw - 36px); height: 50px; display: flex; color: #000">
+						<div
+							style="
+								flex: 1;
+								height: 50px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								flex-direction: column;
+							"
+						>
+							<span>1元</span>
+							<span>租金费用</span>
+						</div>
+						<div
+							style="
+								flex: 1;
+								height: 50px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								flex-direction: column;
+								box-sizing: border-box;
+								border-left: #000 1px solid;
+								border-right: #000 1px solid;
+							"
+						>
+							<span>1元</span> <span>物业费费用</span>
+						</div>
+						<div
+							style="
+								flex: 1;
+								height: 50px;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								flex-direction: column;
+							"
+						>
+							<span>1元</span> <span>其他费用总计</span>
+						</div>
+					</div>
+				</template>
+			</van-cell> -->
+			<!-- <van-row>
+				<van-col span="8">span: 8</van-col>
+				<van-col span="8">span: 8</van-col>
+				<van-col span="8">span: 8</van-col>
+			</van-row>
+			<van-button @click="handelChange">按钮</van-button>
+			{{count}} -->
+		</div>
+		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
+		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
+		<script src="https://fastly.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
+		<script>
+			// 在 #app 标签下渲染一个按钮组件
+			const app = Vue.createApp({
+				data() {
+					return {
+						count: 0,
+						handelChange: () => {
+							this.count = 1;
+						},
+						onClickLeft: () => {},
+					};
+				},
+			});
+			app.use(vant);
+
+			// 通过 CDN 引入时不会自动注册 Lazyload 组件
+			// 可以通过下面的方式手动注册
+			app.use(vant.Lazyload);
+
+			// 调用工具函数，弹出一个 Toast
+			// vant.showToast('提示');
+
+			app.mount('#app');
+		</script>
+	</body>
+</html>

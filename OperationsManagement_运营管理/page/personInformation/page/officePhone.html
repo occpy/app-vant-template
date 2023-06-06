@@ -6,40 +6,39 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
-		<title>个人资料</title>
+		<title>Document</title>
 		<style>
 			[v-cloak] {
 				display: none !important;
 			}
-			body {
-				background-color: rgb(245, 245, 245);
-			}
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="app" v-cloak>
 			<van-nav-bar
-				title="个人资料"
+				title="修改办公电话"
 				left-text=""
 				:fixed="true"
 				:placeholder="true"
 				left-arrow
 				@click-left="onClickLeft"
 			></van-nav-bar>
-			<van-cell title="头像" is-link url="./page/headSculpture.html"></van-cell>
-			<van-cell title="所属部门"></van-cell>
-			<van-cell title="移动电话" is-link url="./page/mobilePhone.html"></van-cell>
-			<van-cell title="办公电话" is-link url="./page/officePhone.html"></van-cell>
-			<van-cell title="邮箱地址" is-link url="./page/email.html"></van-cell>
-			<van-cell title="联系地址" is-link url="./page/contactAddress.html"></van-cell>
-			<!-- <van-row>
-				<van-col span="8">span: 8</van-col>
-				<van-col span="8">span: 8</van-col>
-				<van-col span="8">span: 8</van-col>
-			</van-row>
-			<van-button @click="handelChange">按钮</van-button>
-			{{count}} -->
+			<van-form @submit="onSubmit">
+				<van-cell-group inset>
+					<van-field
+						v-model="officePhone"
+						name="officePhone"
+						label="办公电话"
+						placeholder="办公电话"
+						:rules="[{ required: true, message: '请填写办公电话' }]"
+					></van-field>
+				</van-cell-group>
+				<div style="margin: 16px">
+					<van-button round block type="primary" native-type="submit"> 提交 </van-button>
+				</div>
+			</van-form>
 		</div>
+
 		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
 		<script src="https://fastly.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
@@ -48,23 +47,25 @@
 			const app = Vue.createApp({
 				data() {
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
+						onClickLeft: () => {
+							window.history.back();
 						},
-						onClickLeft: () => {},
+						officePhone: '',
 					};
 				},
+				methods:{
+						onSubmit(){
+							console.log(this.officePhone);
+						},
+					}
 			});
 			app.use(vant);
-
 			// 通过 CDN 引入时不会自动注册 Lazyload 组件
 			// 可以通过下面的方式手动注册
 			app.use(vant.Lazyload);
 
 			// 调用工具函数，弹出一个 Toast
 			// vant.showToast('提示');
-
 			app.mount('#app');
 		</script>
 	</body>

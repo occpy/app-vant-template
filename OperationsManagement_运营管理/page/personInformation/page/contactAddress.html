@@ -26,28 +26,19 @@
 			<van-form @submit="onSubmit">
 				<van-cell-group inset>
 					<van-field
-						v-model="username"
+						v-model="address"
 						name="address"
 						label="联系地址"
 						placeholder="联系地址"
 						:rules="[{ required: true, message: '请填写联系地址' }]"
 					></van-field>
-					<!-- <van-field
-						v-model="password"
-						type="password"
-						name="密码"
-						label="密码"
-						placeholder="密码"
-						:rules="[{ required: true, message: '请填写密码' }]"
-					></van-field> -->
 				</van-cell-group>
 				<div style="margin: 16px">
 					<van-button round block type="primary" native-type="submit"> 提交 </van-button>
 				</div>
 			</van-form>
-			<!-- <van-button @click="handelChange">按钮</van-button>
-			{{count}} -->
 		</div>
+
 		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
 		<script src="https://fastly.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
@@ -56,30 +47,25 @@
 			const app = Vue.createApp({
 				data() {
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
-						},
 						onClickLeft: () => {
 							window.history.back();
 						},
-						username: '',
-						password: '',
-						onSubmit: function () {
-							console.log();
-						},
+						address: '',
 					};
 				},
+				methods:{
+						onSubmit(){
+							console.log(this.address);
+						},
+					}
 			});
 			app.use(vant);
-
 			// 通过 CDN 引入时不会自动注册 Lazyload 组件
 			// 可以通过下面的方式手动注册
 			app.use(vant.Lazyload);
 
 			// 调用工具函数，弹出一个 Toast
 			// vant.showToast('提示');
-
 			app.mount('#app');
 		</script>
 	</body>

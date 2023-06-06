@@ -6,25 +6,40 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
-		<title>Document</title>
+		<title>个人资料</title>
+		<style>
+			[v-cloak] {
+				display: none !important;
+			}
+			body {
+				background-color: rgb(245, 245, 245);
+			}
+		</style>
 	</head>
 	<body>
-		<div id="app" v-cloak>
+		<div id="app">
 			<van-nav-bar
-				title="信息"
+				title="个人资料"
 				left-text=""
 				:fixed="true"
 				:placeholder="true"
 				left-arrow
 				@click-left="onClickLeft"
 			></van-nav-bar>
-			<van-row>
+			<van-cell title="URL 跳转" is-link url="https://github.com"></van-cell>
+			<van-cell title="URL 跳转" is-link url="https://github.com"></van-cell>
+			<van-cell title="URL 跳转" is-link url="https://github.com"></van-cell>
+			<van-cell title="URL 跳转" is-link url="https://github.com"></van-cell>
+			<van-cell title="URL 跳转" is-link url="https://github.com"></van-cell>
+			<van-cell title="邮箱地址" is-link url="https://github.com"></van-cell>
+			<van-cell title="联系地址" is-link url="./page/contactAddress.html"></van-cell>
+			<!-- <van-row>
 				<van-col span="8">span: 8</van-col>
 				<van-col span="8">span: 8</van-col>
 				<van-col span="8">span: 8</van-col>
 			</van-row>
 			<van-button @click="handelChange">按钮</van-button>
-			{{count}}
+			{{count}} -->
 		</div>
 		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>

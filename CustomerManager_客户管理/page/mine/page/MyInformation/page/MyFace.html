@@ -6,12 +6,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
-		<title>修改头像</title>
+		<title>人脸</title>
 	</head>
 	<body>
 		<div id="app" v-cloak>
 			<van-nav-bar
-				title="修改头像"
+				title="人脸"
 				left-text=""
 				:fixed="true"
 				:placeholder="true"
@@ -19,13 +19,14 @@
 				@click-left="onClickLeft"
 			></van-nav-bar>
 			<van-form @submit="onSubmit">
-				<van-field name="uploader" label="头像" label-width="30">
+				<van-field name="uploader" label="人脸" label-width="30">
 					<template #input
 						><van-uploader
 							:before-read="beforeRead"
 							style="margin: 0 auto"
 							v-model="fileList"
-							:max-count="1"
+							multiple
+							:max-count="5"
 						></van-uploader></template
 				></van-field>
 				<van-button style="width: calc(100% - 36px); margin: 16px auto" round block type="primary" native-type="submit">
@@ -47,7 +48,7 @@
 						},
 						onClickLeft: () => {},
 						onSubmit: () => {},
-						fileList: [{ url: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg' }],
+						fileList: [],
 						beforeRead: (file = { type: '' }) => {
 							if (!file.type.includes('image')) {
 								vant.showToast('请上传图片');

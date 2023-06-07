@@ -7,24 +7,106 @@
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
 		<title>加入企业</title>
+		<style>
+			body {
+				background-color: rgb(239, 239, 239);
+			}
+			[v-cloak] {
+				display: none !important;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="app" v-cloak>
 			<van-nav-bar
-				title="信息"
+				title="加入企业"
 				left-text=""
 				:fixed="true"
 				:placeholder="true"
 				left-arrow
 				@click-left="onClickLeft"
 			></van-nav-bar>
-			<van-row>
-				<van-col span="8">span: 8</van-col>
-				<van-col span="8">span: 8</van-col>
-				<van-col span="8">span: 8</van-col>
-			</van-row>
-			<van-button @click="handelChange">按钮</van-button>
-			{{count}}
+			<div style="padding: 10px"></div>
+			<van-form ref="form" @submit="onSubmit">
+				<van-cell-group inset>
+					<van-field
+						v-model="username"
+						name="name"
+						label="姓名"
+						placeholder="请填写您的真实姓名"
+						:rules="[{ required: true, message: '请填写您的真实姓名' }]"
+					></van-field>
+				</van-cell-group>
+				<div style="padding: 10px"></div>
+				<van-cell-group inset>
+					<van-field
+						v-model="password"
+						type="phone"
+						name="phone"
+						label="手机号码"
+						placeholder="请填写您的手机号码"
+						:rules="[{ required: true, message: '请填写您的手机号码' }]"
+					></van-field>
+				</van-cell-group>
+				<div style="padding: 10px"></div>
+				<van-cell-group inset>
+					<van-field
+						v-model="password"
+						name="relationship"
+						label="公司名称"
+						is-link
+						readonly
+						placeholder="请选择您的公司"
+						:rules="[{ required: true, message: '请选择您的公司' }]"
+						@click="() => changeShowPicker()"
+					></van-field>
+					<van-popup style="height: 100%" v-model:show="showPicker" title="请选择您的公司" position="bottom">
+						<van-sticky>
+							<van-row>
+								<van-col span="24">
+									<van-search
+										show-action
+										v-model="value"
+										@cancel="() => onCancel()"
+										placeholder="请输入搜索关键词"
+									></van-search>
+								</van-col>
+							</van-row>
+						</van-sticky>
+
+						<van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+							<van-cell v-for="item in list" :key="item" :title="item"></van-cell>
+						</van-list>
+						<!-- <van-picker :columns="columns" @confirm="onConfirm" @cancel="showPicker = false"></van-picker
+					> -->
+					</van-popup>
+				</van-cell-group>
+				<div style="padding: 10px"></div>
+				<van-cell-group inset>
+					<van-field
+						v-model="password"
+						type="phone"
+						name="ReservehePhone"
+						label="部门"
+						placeholder="请输入您所在的部门名称"
+						:rules="[{ required: true, message: '请输入您所在的部门名称' }]"
+					>
+					</van-field>
+				</van-cell-group>
+				<div style="padding: 10px"></div>
+				<van-cell-group inset>
+					<van-field
+						v-model="password"
+						name="code"
+						label="岗位"
+						placeholder="请输入您的真实岗位"
+						:rules="[{ required: true, message: '请输入您的真实岗位' }]"
+					></van-field>
+				</van-cell-group>
+				<div style="margin: 16px">
+					<van-button round block type="primary" native-type="submit"> 提交 </van-button>
+				</div>
+			</van-form>
 		</div>
 		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
@@ -39,6 +121,56 @@
 							this.count = 1;
 						},
 						onClickLeft: () => {},
+						username: '',
+						password: '',
+						value: '',
+						sendPhoneCode: () => {
+							this.$refs.form
+								.validate('phone')
+								.then((result) => {
+									console.log(result);
+								})
+								.catch((err) => {});
+						},
+						onSubmit: () => {
+							console.log(this.$refs.form);
+						},
+						showPicker: false,
+						changeShowPicker: () => {
+							console.log('asd');
+							this.showPicker = true;
+						},
+						onCancel: () => {
+							this.showPicker = false;
+						},
+						columns: [
+							{ text: '业主', value: 'Hangzhou' },
+							{ text: '家属', value: 'Ningbo' },
+							{ text: '租客', value: 'Wenzhou' },
+						],
+						onConfirm: (v = { selectedOptions: [] }) => {
+							console.log(v.selectedOptions[0]);
+						},
+						list: [],
+						loading: false,
+						finished: false,
+						onLoad: () => {
+							// 异步更新数据
+							// setTimeout 仅做示例，真实场景中一般为 ajax 请求
+							setTimeout(() => {
+								for (let i = 0; i < 10; i++) {
+									this.list.push(this.list.length + 1);
+								}
+
+								// 加载状态结束
+								this.loading = false;
+
+								// 数据全部加载完成
+								if (this.list.length >= 40) {
+									this.finished = true;
+								}
+							}, 1000);
+						},
 					};
 				},
 			});

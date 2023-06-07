@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
-		<title>Document</title>
+		<title>修改个人邮箱</title>
 		<style>
 			[v-cloak] {
 				display: none !important;
@@ -16,7 +16,7 @@
 	<body>
 		<div id="app" v-cloak>
 			<van-nav-bar
-				title="修改邮箱地址"
+				title="修改个人邮箱"
 				left-text=""
 				:fixed="true"
 				:placeholder="true"
@@ -53,11 +53,11 @@
 						email: '',
 					};
 				},
-				methods:{
-						onSubmit(){
-							console.log(this.email);
-						},
-					}
+				methods: {
+					onSubmit() {
+						console.log(this.email);
+					},
+				},
 			});
 			app.use(vant);
 			// 通过 CDN 引入时不会自动注册 Lazyload 组件

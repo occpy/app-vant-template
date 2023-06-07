@@ -6,12 +6,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css" />
-		<title>Document</title>
+		<title>性别修改</title>
 	</head>
 	<body>
 		<div id="app" v-cloak>
 			<van-nav-bar
-				title="头像修改"
+				title="性别修改"
 				left-text=""
 				:fixed="true"
 				:placeholder="true"
@@ -35,7 +35,9 @@
 					@change="onChange"
 				></van-picker
 			></van-popup>
-
+			<van-button style="width: calc(100% - 36px); margin: 16px auto" round block type="primary" native-type="submit">
+				提交
+			</van-button>
 			<!-- <van-row>
 				<van-col span="8">span: 8</van-col>
 				<van-col span="8">span: 8</van-col>

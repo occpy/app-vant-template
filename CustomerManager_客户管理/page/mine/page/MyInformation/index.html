@@ -27,12 +27,22 @@
 				@click-left="onClickLeft"
 			></van-nav-bar
 			><van-cell-group inset style="margin-top: 10px">
-				<van-cell title="头像" is-link url="./page/MyAvator.html"></van-cell>
+				<van-cell title="头像" url="./page/MyAvator.html">
+					<template #value>
+						<van-image
+							round
+							width="50"
+							height="50"
+							src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+						></van-image>
+					</template>
+				</van-cell>
 				<van-cell title="手机号码"></van-cell>
 				<van-cell title="性别" is-link url="./page/MyGrand.html"></van-cell>
 				<van-cell title="修改昵称" is-link url="./page/MyNickname.html"></van-cell>
 				<van-cell title="个人邮箱" is-link url="./page/MyEmail.html"></van-cell
 				><van-cell title="认证信息" is-link url="./page/contactAddress.html"></van-cell
+				><van-cell title="人脸" is-link url="./page/MyFace.html"></van-cell
 			></van-cell-group>
 			<!-- <van-row>
 				<van-col span="8">span: 8</van-col>

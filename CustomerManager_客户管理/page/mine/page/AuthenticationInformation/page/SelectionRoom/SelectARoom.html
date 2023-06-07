@@ -26,7 +26,50 @@
 				left-arrow
 				@click-left="onClickLeft"
 			></van-nav-bar>
-
+			<van-cell-group>
+				<van-cell title="选择单元 - 室" value=""></van-cell>
+				<van-cell title="1单元" value="" label=""> </van-cell>
+				<van-cell title="1F" value="" label="">
+					<template #label>
+						<div style="width: calc(100vw - 38px)">
+							<van-row gutter="20">
+								<van-col span="6" style="display: flex; align-items: center; justify-content: center"
+									><van-tag plain type="primary">101</van-tag></van-col
+								>
+								<van-col span="6" style="display: flex; align-items: center; justify-content: center"
+									><van-tag plain type="primary">102</van-tag></van-col
+								>
+								<van-col span="6" style="display: flex; align-items: center; justify-content: center"
+									><van-tag plain type="primary">103</van-tag></van-col
+								>
+								<van-col span="6" style="display: flex; align-items: center; justify-content: center"
+									><van-tag plain type="primary">104</van-tag></van-col
+								>
+							</van-row>
+						</div>
+					</template>
+				</van-cell>
+				<van-cell title="2F" value="" label="">
+					<template #label>
+						<div style="width: calc(100vw - 38px)">
+							<van-row gutter="20">
+								<van-col span="6" style="display: flex; align-items: center; justify-content: center"
+									><van-tag plain type="primary">101</van-tag></van-col
+								>
+								<van-col span="6" style="display: flex; align-items: center; justify-content: center"
+									><van-tag plain type="primary">102</van-tag></van-col
+								>
+								<van-col span="6" style="display: flex; align-items: center; justify-content: center"
+									><van-tag plain type="primary">103</van-tag></van-col
+								>
+								<van-col span="6" style="display: flex; align-items: center; justify-content: center"
+									><van-tag plain type="primary">104</van-tag></van-col
+								>
+							</van-row>
+						</div>
+					</template>
+				</van-cell>
+			</van-cell-group>
 			<!-- <van-row>
 				<van-col span="8">span: 8</van-col>
 				<van-col span="8">span: 8</van-col>

@@ -27,11 +27,11 @@
 				@click-left="onClickLeft"
 			></van-nav-bar>
 			<div style="padding: 10px"></div>
-			<van-form @submit="onSubmit">
+			<van-form ref="form" @submit="onSubmit">
 				<van-cell-group inset>
 					<van-field
 						v-model="username"
-						name="姓名"
+						name="name"
 						label="姓名"
 						placeholder="请填写您的真实姓名"
 						:rules="[{ required: true, message: '请填写您的真实姓名' }]"
@@ -52,8 +52,7 @@
 				<van-cell-group inset>
 					<van-field
 						v-model="password"
-						type="password"
-						name="房间"
+						name="room"
 						label="房间"
 						placeholder="请选择你居住的房间"
 						:rules="[{ required: true, message: '请选择你居住的房间' }]"
@@ -63,19 +62,24 @@
 				<van-cell-group inset>
 					<van-field
 						v-model="password"
-						type="password"
-						name="身份"
+						name="relationship"
 						label="身份"
+						is-link
+						readonly
 						placeholder="请选择您的身份"
 						:rules="[{ required: true, message: '请选择您的身份' }]"
+						@click="() => changeShowPicker()"
 					></van-field>
+					<van-popup v-model:show="showPicker" title="选择身份" position="bottom">
+						<van-picker :columns="columns" @confirm="onConfirm" @cancel="showPicker = false"></van-picker
+					></van-popup>
 				</van-cell-group>
 				<div style="padding: 10px"></div>
 				<van-cell-group inset>
 					<van-field
 						v-model="password"
 						type="phone"
-						name="phone"
+						name="ReservehePhone"
 						label="预留电话"
 						placeholder="请填写业主预留电话"
 						:rules="[{ required: true, message: '请填写业主预留电话' }]"
@@ -86,13 +90,12 @@
 				<van-cell-group inset>
 					<van-field
 						v-model="password"
-						type="password"
-						name="验证码"
+						name="code"
 						label="验证码"
 						placeholder="验证码"
 						:rules="[{ required: true, message: '请填写验证码' }]"
 						><template #button>
-							<van-button size="small" type="primary">发送验证码</van-button>
+							<van-button size="small" type="primary" @click="() => sendPhoneCode()">发送验证码</van-button>
 						</template></van-field
 					>
 				</van-cell-group>
@@ -100,13 +103,6 @@
 					<van-button round block type="primary" native-type="submit"> 提交 </van-button>
 				</div>
 			</van-form>
-			<!-- <van-row>
-				<van-col span="8">span: 8</van-col>
-				<van-col span="8">span: 8</van-col>
-				<van-col span="8">span: 8</van-col>
-			</van-row>
-			<van-button @click="handelChange">按钮</van-button>
-			{{count}} -->
 		</div>
 		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
@@ -123,7 +119,30 @@
 						onClickLeft: () => {},
 						username: '',
 						password: '',
-						onSubmit: () => {},
+						sendPhoneCode: () => {
+							this.$refs.form
+								.validate('phone')
+								.then((result) => {
+									console.log(result);
+								})
+								.catch((err) => {});
+						},
+						onSubmit: () => {
+							console.log(this.$refs.form);
+						},
+						showPicker: false,
+						changeShowPicker: () => {
+							console.log('asd');
+							this.showPicker = true;
+						},
+						columns: [
+							{ text: '业主', value: 'Hangzhou' },
+							{ text: '家属', value: 'Ningbo' },
+							{ text: '租客', value: 'Wenzhou' },
+						],
+						onConfirm: (v = { selectedOptions: [] }) => {
+							console.log(v.selectedOptions[0]);
+						},
 					};
 				},
 			});

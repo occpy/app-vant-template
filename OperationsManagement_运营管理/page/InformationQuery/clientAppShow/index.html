@@ -11,28 +11,35 @@
 			[v-cloak] {
 				display: none !important;
 			}
+			body {
+				background-color: rgb(226, 226, 226);
+			}
 		</style>
 	</head>
 	<body>
 		<div id="app" v-cloak>
 			<van-nav-bar title="个人档案" left-text="" left-arrow @click-left="() => onClickLeft()"></van-nav-bar>
 			<van-cell-group>
-				<van-cell title="xxx业主" value="">
+				<van-cell title="" value="">
+					<template #title>
+						<h3 style="margin: 0 auto">xxx业主</h3>
+					</template>
 					<template #label
-						><div style="height: 30px; display: flex; flex-direction: column; justify-content: space-around">
-							<span>描述信息</span><span>sdadasds</span>
+						><div style="height: 50px; display: flex; flex-direction: column; justify-content: space-around">
+							<h4 style="margin: 0">客户类型：业主/租户</h4>
+							<h4 style="margin: 0">在园状态：在园</h4>
 						</div></template
 					></van-cell
 				>
 				<van-cell>
 					<van-grid>
-						<van-grid-item icon="photo-o" text="基本信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="合同信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="房间信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="车位信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="车辆信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="费用信息"></van-grid-item>
-						<van-grid-item icon="photo-o" text="服务信息"></van-grid-item>
+						<van-grid-item icon="photo-o" text="基本信息" url="./page/BasicInformation.html"></van-grid-item>
+						<van-grid-item icon="photo-o" text="合同信息" url="./page/ContractInformation.html"></van-grid-item>
+						<van-grid-item icon="photo-o" text="房间信息" url="./page/RoomInformation.html"></van-grid-item>
+						<van-grid-item icon="photo-o" text="车位信息" url="./page/ParkingSpaceInformation.html"></van-grid-item>
+						<van-grid-item icon="photo-o" text="车辆信息" url="./page/VehicleInformation.html"></van-grid-item>
+						<van-grid-item icon="photo-o" text="费用信息" url="./page/FeeInformation.html"></van-grid-item>
+						<van-grid-item icon="photo-o" text="服务信息" url="./page/ServiceInformation.html"></van-grid-item>
 					</van-grid>
 				</van-cell>
 				<van-cell title="联系信息"> </van-cell>

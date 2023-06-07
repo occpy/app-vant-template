@@ -11,10 +11,21 @@
 			[v-cloak] {
 				display: none !important;
 			}
+			body {
+				background-color: rgb(247, 248, 250);
+			}
 		</style>
 	</head>
 	<body>
 		<div id="app" v-cloak>
+			<van-nav-bar
+				title="客户信息"
+				left-text=""
+				:fixed="true"
+				:placeholder="true"
+				left-arrow
+				@click-left="onClickLeft"
+			></van-nav-bar>
 			<van-row>
 				<van-col span="24"
 					><van-dropdown-menu>
@@ -40,7 +51,7 @@
 				></van-col>
 				<van-col span="18"
 					><van-list
-						style="height: 83vh; overflow: auto"
+						style="height: calc(100vh - 150px); overflow: auto"
 						v-model:loading="sidebarDo.loading"
 						:finished="sidebarDo.finished"
 						finished-text="没有更多了"
@@ -68,7 +79,7 @@
 					return {
 						count: 0,
 						checked: '1',
-
+						onClickLeft: () => {},
 						handelChange: () => {
 							this.count = 1;
 						},

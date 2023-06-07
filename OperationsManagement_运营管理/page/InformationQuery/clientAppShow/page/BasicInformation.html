@@ -24,10 +24,14 @@
 				@click-left="() => onClickLeft()"
 			></van-nav-bar>
 			<van-cell-group>
-				<van-cell title="xxx有限公司" value="">
+				<van-cell title="" value="">
+					<template #title>
+						<h3 style="margin: 0 auto">xxx业主</h3>
+					</template>
 					<template #label
-						><div style="height: 30px; display: flex; flex-direction: column; justify-content: space-around">
-							<span>客户类型：业主/租户</span><span>在园状态：在园</span>
+						><div style="height: 50px; display: flex; flex-direction: column; justify-content: space-around">
+							<h4 style="margin: 0">客户类型：业主/租户</h4>
+							<h4 style="margin: 0">在园状态：在园</h4>
 						</div></template
 					></van-cell
 				>

@@ -27,7 +27,12 @@
 				@click-left="onClickLeft"
 			></van-nav-bar>
 			<van-sticky :offset-top="46"
-				><van-search v-model="searchValue" placeholder="请输入区域名称"></van-search
+				><van-search
+					v-model="searchValue"
+					@search="(v) => onSearch(v)"
+					@clear="() => onSearch()"
+					placeholder="请输入区域名称"
+				></van-search
 			></van-sticky>
 
 			<van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
@@ -47,34 +52,50 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					const onClickLeft = () => {};
+					const searchValue = ref('');
+					// 列表
+					const list = reactive([]);
+					const loading = ref(false);
+					const finished = ref(false);
+					const onLoad = () => {
+						// 异步更新数据
+						// setTimeout 仅做示例，真实场景中一般为 ajax 请求
+						setTimeout(() => {
+							for (let i = 0; i < 10; i++) {
+								list.push(list.length + 1);
+							}
+
+							// 加载状态结束
+							loading.value = false;
+
+							// 数据全部加载完成
+							if (list.length >= 40) {
+								finished.value = true;
+							}
+						}, 1000);
+					};
+					const onSearch = (v = '') => {
+						console.log(v);
+					};
+					onLoad();
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
-						},
-						onClickLeft: () => {},
-						searchValue: '',
-						list: [],
-						loading: false,
-						finished: false,
-						onLoad: () => {
-							// 异步更新数据
-							// setTimeout 仅做示例，真实场景中一般为 ajax 请求
-							setTimeout(() => {
-								for (let i = 0; i < 10; i++) {
-									this.list.push(this.list.length + 1);
-								}
-
-								// 加载状态结束
-								this.loading = false;
-
-								// 数据全部加载完成
-								if (this.list.length >= 40) {
-									this.finished = true;
-								}
-							}, 1000);
-						},
+						count,
+						handelChange,
+						onClickLeft,
+						loading,
+						finished,
+						list,
+						onLoad,
+						searchValue,
+						finished,
+						onSearch,
 					};
 				},
 			});

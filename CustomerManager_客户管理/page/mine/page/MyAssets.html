@@ -68,64 +68,72 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					const onClickLeft = () => {};
+					const active = ref(0);
+					const room = reactive({
+						list: [],
+						loading: false,
+						finished: false,
+						onLoad: function () {
+							// 异步更新数据
+							// setTimeout 仅做示例，真实场景中一般为 ajax 请求
+							setTimeout(() => {
+								for (let i = 0; i < 10; i++) {
+									this.list.push(this.list.length + 1);
+								}
+
+								// 加载状态结束
+								this.loading = false;
+
+								// 数据全部加载完成
+								if (this.list.length >= 40) {
+									this.finished = true;
+								}
+							}, 1000);
+						},
+					});
+					const park = reactive({
+						list: [],
+						loading: false,
+						finished: false,
+						onLoad: function () {
+							// 异步更新数据
+							// setTimeout 仅做示例，真实场景中一般为 ajax 请求
+							setTimeout(() => {
+								for (let i = 0; i < 10; i++) {
+									this.list.push(this.list.length + 1);
+								}
+
+								// 加载状态结束
+								this.loading = false;
+
+								// 数据全部加载完成
+								if (this.list.length >= 40) {
+									this.finished = true;
+								}
+							}, 1000);
+						},
+					});
+					const onClickTab = (name) => {
+						console.log(name);
+						if (name.name == 1) {
+							park.onLoad();
+						}
+					};
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
-						},
-						onClickLeft: () => {},
-						active: 0,
-						room: {
-							list: [],
-							loading: false,
-							finished: false,
-							onLoad: function () {
-								// 异步更新数据
-								// setTimeout 仅做示例，真实场景中一般为 ajax 请求
-								setTimeout(() => {
-									for (let i = 0; i < 10; i++) {
-										this.list.push(this.list.length + 1);
-									}
-
-									// 加载状态结束
-									this.loading = false;
-
-									// 数据全部加载完成
-									if (this.list.length >= 40) {
-										this.finished = true;
-									}
-								}, 1000);
-							},
-						},
-						park: {
-							list: [],
-							loading: false,
-							finished: false,
-							onLoad: function () {
-								// 异步更新数据
-								// setTimeout 仅做示例，真实场景中一般为 ajax 请求
-								setTimeout(() => {
-									for (let i = 0; i < 10; i++) {
-										this.list.push(this.list.length + 1);
-									}
-
-									// 加载状态结束
-									this.loading = false;
-
-									// 数据全部加载完成
-									if (this.list.length >= 40) {
-										this.finished = true;
-									}
-								}, 1000);
-							},
-						},
-						onClickTab: (name) => {
-							console.log(name);
-							if (name.name == 1) {
-								this.park.onLoad();
-							}
-						},
+						count,
+						active,
+						handelChange,
+						onClickLeft,
+						room,
+						park,
+						onClickTab,
 					};
 				},
 			});

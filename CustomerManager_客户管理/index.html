@@ -32,13 +32,17 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					const onClickLeft = () => {};
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
-						},
-						onClickLeft: () => {},
+						count,
+						handelChange,
+						onClickLeft,
 					};
 				},
 			});

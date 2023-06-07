@@ -45,18 +45,23 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
-					return {
-						onClickLeft: () => {
-							window.history.back();
-						},
-						email: '',
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
 					};
-				},
-				methods: {
-					onSubmit() {
-						console.log(this.email);
-					},
+					const email = ref('');
+					const onClickLeft = () => {};
+					const onSubmit = () => {
+						console.log(email.value);
+					};
+					return {
+						count,
+						handelChange,
+						onClickLeft,
+						email,
+					};
 				},
 			});
 			app.use(vant);

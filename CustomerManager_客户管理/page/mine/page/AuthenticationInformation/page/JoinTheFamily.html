@@ -110,39 +110,52 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					const form = ref();
+					const onClickLeft = () => {};
+					const username = ref('');
+					const password = ref('');
+					const sendPhoneCode = () => {
+						form.value
+							.validate('phone')
+							.then((result) => {
+								console.log(result);
+							})
+							.catch((err) => {});
+					};
+					const showPicker = ref(false);
+					const onSubmit = () => {
+						console.log(form.value);
+					};
+					const columns = reactive([
+						{ text: '业主', value: 'Hangzhou' },
+						{ text: '家属', value: 'Ningbo' },
+						{ text: '租客', value: 'Wenzhou' },
+					]);
+					const onConfirm = (v = { selectedOptions: [] }) => {
+						console.log(v.selectedOptions[0]);
+					};
+					const changeShowPicker = () => {
+						showPicker.value = true;
+					};
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
-						},
-						onClickLeft: () => {},
-						username: '',
-						password: '',
-						sendPhoneCode: () => {
-							this.$refs.form
-								.validate('phone')
-								.then((result) => {
-									console.log(result);
-								})
-								.catch((err) => {});
-						},
-						onSubmit: () => {
-							console.log(this.$refs.form);
-						},
-						showPicker: false,
-						changeShowPicker: () => {
-							console.log('asd');
-							this.showPicker = true;
-						},
-						columns: [
-							{ text: '业主', value: 'Hangzhou' },
-							{ text: '家属', value: 'Ningbo' },
-							{ text: '租客', value: 'Wenzhou' },
-						],
-						onConfirm: (v = { selectedOptions: [] }) => {
-							console.log(v.selectedOptions[0]);
-						},
+						count,
+						handelChange,
+						onClickLeft,
+						form,
+						sendPhoneCode,
+						onSubmit,
+						showPicker,
+						onConfirm,
+						username,
+						password,
+						changeShowPicker,
+						columns,
 					};
 				},
 			});

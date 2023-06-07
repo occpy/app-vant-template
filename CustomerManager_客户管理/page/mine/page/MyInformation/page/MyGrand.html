@@ -57,36 +57,48 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					const onClickLeft = () => {};
+					const nickname = ref('');
+					const onSubmit = () => {
+						console.log(nickname.value);
+					};
+					const fieldValue = ref('');
+					const showPicker = ref(false);
+					const columns = reactive([
+						{
+							text: '男',
+							value: 1,
+						},
+						{
+							text: '女',
+							value: 0,
+						},
+					]);
+					const onConfirm = ({ selectedOptions }) => {
+						showPicker.value = false;
+						fieldValue.value = selectedOptions[0].text;
+					};
+					const onChange = ({ selectedValues }) => {
+						// showToast(`当前值: ${selectedValues.join(',')}`);
+					};
+					const onCancel = () => {};
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
-						},
-						onClickLeft: () => {},
-						columns: [
-							{
-								text: '男',
-								value: 1,
-							},
-							{
-								text: '女',
-								value: 0,
-							},
-						],
-						onConfirm: ({ selectedValues }) => {
-							// showToast(`当前值: ${selectedValues.join(',')}`);
-						},
-						onChange: ({ selectedValues }) => {
-							// showToast(`当前值: ${selectedValues.join(',')}`);
-						},
-						onCancel: () => {},
-						showPicker: false,
-						fieldValue: '',
-						onConfirm: ({ selectedOptions }) => {
-							this.showPicker = false;
-							this.fieldValue = selectedOptions[0].text;
-						},
+						count,
+						handelChange,
+						columns,
+						onClickLeft,
+						onSubmit,
+						showPicker,
+						onConfirm,
+						fieldValue,
+						onChange,
+						onCancel,
 					};
 				},
 			});

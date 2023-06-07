@@ -58,7 +58,7 @@
 						readonly
 						placeholder="请选择您的公司"
 						:rules="[{ required: true, message: '请选择您的公司' }]"
-						@click="() => changeShowPicker()"
+						@click="changeShowPicker"
 					></van-field>
 					<van-popup style="height: 100%" v-model:show="showPicker" title="请选择您的公司" position="bottom">
 						<van-sticky>
@@ -66,8 +66,8 @@
 								<van-col span="24">
 									<van-search
 										show-action
-										v-model="value"
-										@cancel="() => onCancel()"
+										v-model="searchValue"
+										@cancel="onCancel"
 										placeholder="请输入搜索关键词"
 									></van-search>
 								</van-col>
@@ -114,63 +114,83 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					const form = ref();
+					const onClickLeft = () => {};
+					const username = ref('');
+					const password = ref('');
+					const searchValue = ref('');
+					const sendPhoneCode = () => {
+						form.value
+							.validate('phone')
+							.then((result) => {
+								console.log(result);
+							})
+							.catch((err) => {});
+					};
+					const showPicker = ref(false);
+					const onSubmit = () => {
+						console.log(form.value);
+					};
+					const columns = reactive([
+						{ text: '业主', value: 'Hangzhou' },
+						{ text: '家属', value: 'Ningbo' },
+						{ text: '租客', value: 'Wenzhou' },
+					]);
+					const onConfirm = (v = { selectedOptions: [] }) => {
+						console.log(v.selectedOptions[0]);
+					};
+					const changeShowPicker = () => {
+						showPicker.value = true;
+					};
+					const onCancel = () => {
+						showPicker.value = false;
+					};
+					// 列表
+					const list = reactive([]);
+					const loading = ref(false);
+					const finished = ref(false);
+					const onLoad = () => {
+						// 异步更新数据
+						// setTimeout 仅做示例，真实场景中一般为 ajax 请求
+						setTimeout(() => {
+							for (let i = 0; i < 10; i++) {
+								list.push(list.length + 1);
+							}
+
+							// 加载状态结束
+							loading.value = false;
+
+							// 数据全部加载完成
+							if (list.length >= 40) {
+								finished.value = true;
+							}
+						}, 1000);
+					};
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
-						},
-						onClickLeft: () => {},
-						username: '',
-						password: '',
-						value: '',
-						sendPhoneCode: () => {
-							this.$refs.form
-								.validate('phone')
-								.then((result) => {
-									console.log(result);
-								})
-								.catch((err) => {});
-						},
-						onSubmit: () => {
-							console.log(this.$refs.form);
-						},
-						showPicker: false,
-						changeShowPicker: () => {
-							console.log('asd');
-							this.showPicker = true;
-						},
-						onCancel: () => {
-							this.showPicker = false;
-						},
-						columns: [
-							{ text: '业主', value: 'Hangzhou' },
-							{ text: '家属', value: 'Ningbo' },
-							{ text: '租客', value: 'Wenzhou' },
-						],
-						onConfirm: (v = { selectedOptions: [] }) => {
-							console.log(v.selectedOptions[0]);
-						},
-						list: [],
-						loading: false,
-						finished: false,
-						onLoad: () => {
-							// 异步更新数据
-							// setTimeout 仅做示例，真实场景中一般为 ajax 请求
-							setTimeout(() => {
-								for (let i = 0; i < 10; i++) {
-									this.list.push(this.list.length + 1);
-								}
-
-								// 加载状态结束
-								this.loading = false;
-
-								// 数据全部加载完成
-								if (this.list.length >= 40) {
-									this.finished = true;
-								}
-							}, 1000);
-						},
+						count,
+						handelChange,
+						onClickLeft,
+						form,
+						sendPhoneCode,
+						onSubmit,
+						showPicker,
+						onConfirm,
+						username,
+						password,
+						changeShowPicker,
+						columns,
+						list,
+						loading,
+						finished,
+						onLoad,
+						onCancel,
+						searchValue,
 					};
 				},
 			});

@@ -260,18 +260,24 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					const onClickLeft = () => {};
+					const value1 = ref(0);
+					const option = reactive([
+						{ text: '总览', value: 0 },
+						{ text: '月览', value: 1 },
+					]);
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
-						},
-						onClickLeft: () => {},
-						value1: 0,
-						option: [
-							{ text: '总览', value: 0 },
-							{ text: '月览', value: 1 },
-						],
+						count,
+						handelChange,
+						onClickLeft,
+						value1,
+						option,
 					};
 				},
 			});

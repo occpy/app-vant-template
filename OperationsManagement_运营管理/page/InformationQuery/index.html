@@ -29,20 +29,14 @@
 			<van-row>
 				<van-col span="24"
 					><van-dropdown-menu>
-						<van-dropdown-item v-model="dropdownDo.value1" :options="dropdownDo.option1"></van-dropdown-item>
-						<van-dropdown-item
-							v-model="dropdownDo.value2"
-							:options="dropdownDo.option2"
-						></van-dropdown-item> </van-dropdown-menu
+						<van-dropdown-item v-model="value1" :options="option1"></van-dropdown-item>
+						<van-dropdown-item v-model="value2" :options="option2"></van-dropdown-item> </van-dropdown-menu
 				></van-col>
 				<van-col span="24"
-					><van-search
-						v-model="searchDo.searchValue"
-						@search="() => searchDo.searchfun()"
-						placeholder="请输入搜索关键词"
+					><van-search v-model="searchValue" @search="searchfun" placeholder="请输入搜索关键词"
 				/></van-col>
 				<van-col span="6">
-					<van-sidebar v-model="sidebarDo.active" style="width: 100%">
+					<van-sidebar v-model="active" style="width: 100%">
 						<van-sidebar-item title="全部"></van-sidebar-item>
 						<van-sidebar-item title="互联网"></van-sidebar-item>
 						<van-sidebar-item title="金融业"></van-sidebar-item>
@@ -52,12 +46,18 @@
 				<van-col span="18"
 					><van-list
 						style="height: calc(100vh - 150px); overflow: auto"
-						v-model:loading="sidebarDo.loading"
-						:finished="sidebarDo.finished"
+						v-model:loading="loading"
+						:finished="finished"
 						finished-text="没有更多了"
-						@load="() => sidebarDo.onLoad()"
+						@load="onLoad"
 					>
-						<van-cell v-for="item in sidebarDo.list" :key="item" :title="item" label="入园时间:">
+						<van-cell
+							url="./enterpriseAppShow/index.html"
+							v-for="item in list"
+							:key="item"
+							:title="item"
+							label="入园时间:"
+						>
 							<template v-slot:value>
 								<van-tag type="primary" size="large">正常</van-tag>
 							</template>
@@ -66,8 +66,8 @@
 				>
 			</van-row>
 
-			<!-- <van-button @click="handelChange">按钮</van-button> -->
-			<!-- {{count}} -->
+			<!-- <van-button @click="handelChange">按钮</van-button>
+			{{count}} -->
 		</div>
 		<!-- 引入 Vue 和 Vant 的 JS 文件 -->
 		<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
@@ -75,54 +75,69 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					// 顶部导航栏左边
+					const onClickLeft = () => {};
+					// 类型选项
+					const value1 = ref(0);
+					const value2 = ref(0);
+					const option1 = reactive([
+						{ text: '企业客户', value: 0 },
+						{ text: '个人客户', value: 1 },
+					]);
+					const option2 = reactive([
+						{ text: '在园', value: 0 },
+						{ text: '退园', value: 1 },
+					]);
+
+					// 搜索值
+					const searchValue = ref('');
+					// 搜索方法
+					const searchfun = () => {
+						console.log(searchValue.value);
+					};
+					// 列表
+					const list = reactive([]);
+					// 左边导航栏
+					const active = ref(0);
+					const loading = ref(false);
+					const finished = ref(false);
+					const onLoad = () => {
+						console.log(list);
+						// 异步更新数据
+						// setTimeout 仅做示例，真实场景中一般为 ajax 请求
+						setTimeout(() => {
+							for (let i = 0; i < 10; i++) {
+								list.push(list.length + 1);
+							}
+							// 加载状态结束
+							loading.value = false;
+							// 数据全部加载完成
+							if (list.length >= 40) {
+								finished.value = true;
+							}
+						}, 1000);
+					};
 					return {
-						count: 0,
-						checked: '1',
-						onClickLeft: () => {},
-						handelChange: () => {
-							this.count = 1;
-						},
-						dropdownDo: {
-							value1: 0,
-							value2: 0,
-							option1: [
-								{ text: '企业客户', value: 0 },
-								{ text: '个人客户', value: 1 },
-							],
-							option2: [
-								{ text: '在园', value: 0 },
-								{ text: '退园', value: 1 },
-							],
-						},
-						searchDo: {
-							searchValue: '',
-							searchfun: function () {
-								console.log(this.searchValue);
-							},
-						},
-						sidebarDo: {
-							active: 0,
-							list: [],
-							loading: false,
-							finished: false,
-							onLoad: function () {
-								console.log(this.list);
-								// 异步更新数据
-								// setTimeout 仅做示例，真实场景中一般为 ajax 请求
-								setTimeout(() => {
-									for (let i = 0; i < 10; i++) {
-										this.list.push(this.list.length + 1);
-									}
-									// 加载状态结束
-									this.loading = false;
-									// 数据全部加载完成
-									if (this.list.length >= 40) {
-										this.finished = true;
-									}
-								}, 1000);
-							},
-						},
+						count,
+						onClickLeft,
+						handelChange,
+						searchValue,
+						searchfun,
+						value1,
+						value2,
+						option1,
+						option2,
+						list,
+						finished,
+						loading,
+						onLoad,
+						active,
 					};
 				},
 			});

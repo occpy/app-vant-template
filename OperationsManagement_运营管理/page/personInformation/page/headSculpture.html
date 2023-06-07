@@ -44,22 +44,33 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					// const mobilePhone = ref('');
+					const onClickLeft = () => {};
+
+					const fileList = reactive([{ url: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg' }]);
+					const onSubmit = () => {
+						console.log(fileList);
+					};
+					const beforeRead = (file = { type: '' }) => {
+						if (!file.type.includes('image')) {
+							vant.showToast('请上传图片');
+							return false;
+						}
+						return true;
+					};
 					return {
-						count: 0,
-						handelChange: () => {
-							this.count = 1;
-						},
-						onClickLeft: () => {},
-						onSubmit: () => {},
-						fileList: [{ url: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg' }],
-						beforeRead: (file = { type: '' }) => {
-							if (!file.type.includes('image')) {
-								vant.showToast('请上传图片');
-								return false;
-							}
-							return true;
-						},
+						count,
+						handelChange,
+						onClickLeft,
+						onSubmit,
+						fileList,
+						beforeRead,
 					};
 				},
 			});

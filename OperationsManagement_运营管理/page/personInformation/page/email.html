@@ -45,19 +45,25 @@
 		<script>
 			// 在 #app 标签下渲染一个按钮组件
 			const app = Vue.createApp({
-				data() {
+				setup() {
+					const { ref, reactive } = Vue;
+					const count = ref(0);
+					const handelChange = () => {
+						count.value = 1;
+					};
+					const email = ref('');
+					const onClickLeft = () => {};
+					const onSubmit = () => {
+						console.log(email.value);
+					};
 					return {
-						onClickLeft: () => {
-							window.history.back();
-						},
-						email: '',
+						count,
+						email,
+						handelChange,
+						onClickLeft,
+						onSubmit,
 					};
 				},
-				methods:{
-						onSubmit(){
-							console.log(this.email);
-						},
-					}
 			});
 			app.use(vant);
 			// 通过 CDN 引入时不会自动注册 Lazyload 组件

@@ -2,8 +2,13 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<script src="https://unpkg.com/vue@next"></script>
 		<!-- import CSS -->
-		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+		<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
+		<!-- import JavaScript -->
+		<script src="https://unpkg.com/element-plus"></script>
+		<script src="https://unpkg.com/element-plus/dist/locale/zh-cn"></script>
 		<style>
 			[v-cloak] {
 				display: none !important;
@@ -25,19 +30,19 @@
 		</div>
 		<div id="app" style="background-color: #fff" v-cloak>
 			<el-card class="box-card" shadow="never">
-				<div slot="header" class="clearfix">
+				<template #header class="clearfix">
 					<span>{{ basicData["customerName"]}}</span>
-				</div>
+				</template>
 				<el-card class="box-card" shadow="never">
-					<div slot="header" class="clearfix">
+					<template #header class="clearfix">
 						<span>基础画像</span>
-					</div>
+					</template>
 					<el-row :gutter="20">
 						<el-col :span="8" v-for="(item,index) in roomInfo.list" :key="index" style="margin-bottom: 10px">
 							<el-card class="room-card" shadow="never">
-								<div slot="header" class="clearfix">
+								<template #header class="clearfix">
 									<span>{{item['spatialCoding'] ?? '-'}}</span>
-								</div>
+								</template>
 								<div class="body-card">
 									<el-descriptions title="" :column="2">
 										<el-descriptions-item label="区域">{{item['region'] ?? '-'}}</el-descriptions-item>
@@ -51,9 +56,9 @@
 						</el-col>
 						<el-col :span="8" style="margin-bottom: 10px">
 							<el-card class="box-card" shadow="never">
-								<div slot="header" class="clearfix">
+								<template #header class="clearfix">
 									<span>住户({{householdInfo.list.length}})</span>
-								</div>
+								</template>
 								<div class="body-card">
 									<el-table :data="householdInfo.list" style="margin-top: -40px !important">
 										<el-table-column prop="date" label="">
@@ -69,9 +74,9 @@
 						</el-col>
 						<el-col :span="8" style="margin-bottom: 10px">
 							<el-card class="box-card" shadow="never">
-								<div slot="header" class="clearfix">
+								<template #header class="clearfix">
 									<span>车位({{parkingInfo.list.length}})</span>
-								</div>
+								</template>
 								<div class="body-card">
 									<el-table :data="parkingInfo.list" style="margin-top: -40px !important">
 										<el-table-column prop="date" label="">
@@ -85,9 +90,9 @@
 						</el-col>
 						<el-col :span="8" style="margin-bottom: 10px">
 							<el-card class="box-card" shadow="never">
-								<div slot="header" class="clearfix">
+								<template #header class="clearfix">
 									<span>车辆({{carInfo.list.length}})</span>
-								</div>
+								</template>
 								<div class="body-card">
 									<el-table :data="carInfo.list" style="margin-top: -40px !important">
 										<el-table-column prop="date" label="">
@@ -105,17 +110,17 @@
 				</el-card>
 				<br />
 				<el-card class="box-card" shadow="never">
-					<div slot="header" class="clearfix">
+					<template #header class="clearfix">
 						<span>行为画像</span>
-					</div>
+					</template>
 					<el-card class="box-card" shadow="never">
-						<div slot="header" class="clearfix">
+						<template #header class="clearfix">
 							<span>费项</span>
-						</div>
+						</template>
 						<el-card class="box-card" shadow="never">
-							<div slot="header" class="clearfix">
+							<template #header class="clearfix">
 								<span>费用统计</span>
-							</div>
+							</template>
 							<el-descriptions title="" :border="true">
 								<el-descriptions-item label="累计应缴">123</el-descriptions-item>
 								<el-descriptions-item label="累计已缴">123</el-descriptions-item>
@@ -124,9 +129,9 @@
 						</el-card>
 						<br />
 						<el-card class="box-card" shadow="never">
-							<div slot="header" class="clearfix">
+							<template #header class="clearfix">
 								<span>费项统计</span>
-							</div>
+							</template>
 							<el-row :gutter="20">
 								<el-col :span="8"><div id="AccumulatedPayable" style="height: 400px"></div></el-col>
 								<el-col :span="8"><div id="AccumulatedPaid" style="height: 400px"></div></el-col>
@@ -137,28 +142,28 @@
 						<el-row :gutter="20">
 							<el-col :span="12"
 								><el-card class="box-card" shadow="never">
-									<div slot="header" class="clearfix">
+									<template #header class="clearfix">
 										<span>用水趋势</span>
-									</div>
+									</template>
 									<div id="WaterUsageTrends" style="height: 400px"></div> </el-card
 							></el-col>
 							<el-col :span="12"
 								><el-card class="box-card" shadow="never">
-									<div slot="header" class="clearfix">
+									<template #header class="clearfix">
 										<span>用电趋势</span>
-									</div>
+									</template>
 									<div id="ElectricityConsumptionTrends" style="height: 400px"></div> </el-card
 							></el-col>
 						</el-row>
 					</el-card>
 					<br />
 					<el-card class="box-card" shadow="never">
-						<div slot="header" class="clearfix">
+						<template #header class="clearfix">
 							<h3>账单查询</h3>
 							<span class="demonstration">月份</span>
 							<el-date-picker v-model="billingInfo.date" type="month" placeholder="选择月"> </el-date-picker>
 							<!--  -->
-						</div>
+						</template>
 						<el-table :data="billingInfo.pageData" :border="true" style="width: 100%">
 							<el-table-column prop="date" label="日期" width="180"> </el-table-column>
 							<el-table-column prop="name" label="姓名" width="180"> </el-table-column>
@@ -176,34 +181,34 @@
 					</el-card>
 					<br />
 					<el-card class="box-card" shadow="never">
-						<div slot="header" class="clearfix">
+						<template #header class="clearfix">
 							<span>支付统计</span>
-						</div>
+						</template>
 						<br />
 						<el-descriptions title="" :border="true">
-							<el-descriptions-item label="支付合计">kooriookami</el-descriptions-item>
+							<el-descriptions-item label="支付合计">12345846</el-descriptions-item>
 							<el-descriptions-item label="支出笔数">18100000000</el-descriptions-item>
 						</el-descriptions>
 						<br />
 						<el-card class="box-card" shadow="never">
-							<div slot="header" class="clearfix">
+							<template #header class="clearfix">
 								<h3>支付趋势</h3>
-							</div>
+							</template>
 							<div id="PaymentTrends" style="height: 400px"></div>
 						</el-card>
 						<br />
 						<el-row :gutter="20">
 							<el-col :span="12">
 								<el-card class="box-card" shadow="never">
-									<div slot="header" class="clearfix">
+									<template #header class="clearfix">
 										<span>分类支出排行</span>
-									</div>
+									</template>
 									<div id="RankingOfClassifiedExpenses" style="height: 400px"></div> </el-card></el-col
 							><el-col :span="12">
 								<el-card class="box-card" shadow="never">
-									<div slot="header" class="clearfix">
+									<template #header class="clearfix">
 										<span>支出排行</span>
-									</div>
+									</template>
 									<div style="width: 100%; height: 400px; overflow: auto"></div>
 								</el-card>
 							</el-col>
@@ -211,18 +216,18 @@
 					</el-card>
 					<br />
 					<el-card class="box-card" shadow="never">
-						<div slot="header" class="clearfix">
+						<template #header class="clearfix">
 							<h3>通行轨迹</h3>
 							<!--  -->
 							<span>月份</span>
 							<el-date-picker v-model="transitInfo.transitInfo_date" type="month" placeholder="选择月">
 							</el-date-picker>
-						</div>
+						</template>
 						<div id="TrafficTrend" style="height: 400px"></div>
 					</el-card>
 					<br />
 					<el-card class="box-card" shadow="never">
-						<div slot="header" class="clearfix">
+						<template #header class="clearfix">
 							<h3>工单统计</h3>
 							<span>服务类型</span>
 							<el-select v-model="workTickets.workTicketsTypeValue" placeholder="请选择">
@@ -243,21 +248,21 @@
 								end-placeholder="结束日期"
 							>
 							</el-date-picker>
-						</div>
+						</template>
 						<el-row :gutter="20">
 							<el-col :span="12"
 								><el-card class="box-card" shadow="never">
-									<div slot="header" class="clearfix">
+									<template #header class="clearfix">
 										<span>已完结</span>
-									</div>
+									</template>
 									<div id="Completed" style="height: 400px"></div>
 								</el-card>
 							</el-col>
 							<el-col :span="12"
 								><el-card class="box-card" shadow="never">
-									<div slot="header" class="clearfix">
+									<template #header class="clearfix">
 										<span>未完结</span>
-									</div>
+									</template>
 									<div id="unfinished" style="height: 400px"></div>
 								</el-card>
 							</el-col>
@@ -265,7 +270,7 @@
 					</el-card>
 					<br />
 					<el-card class="box-card" shadow="never">
-						<div slot="header" class="clearfix">
+						<template #header class="clearfix">
 							<h3>客户轨迹</h3>
 							<span class="demonstration">操作日期</span>
 							<el-date-picker
@@ -297,7 +302,7 @@
 								>
 								</el-option>
 							</el-select>
-						</div>
+						</template>
 						<el-table :data="tableData" :border="true" style="width: 100%">
 							<el-table-column prop="date" label="日期" width="180"> </el-table-column>
 							<el-table-column prop="name" label="姓名" width="180"> </el-table-column>
@@ -308,10 +313,6 @@
 			</el-card>
 		</div>
 	</body>
-	<!-- import Vue before Element -->
-	<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
-	<!-- import JavaScript -->
-	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 	<!-- ehcarts -->
 	<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.2/echarts.common.min.js"></script>
 	<!-- axios -->
@@ -319,406 +320,452 @@
 	<script>
 		// 月份
 		const lineX = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
-		new Vue({
-			el: '#app',
+		// 虚拟下拉列表
+		const fakerOption = [
+			{
+				value: '选项1',
+				label: '黄金糕',
+			},
+			{
+				value: '选项2',
+				label: '双皮奶',
+			},
+			{
+				value: '选项3',
+				label: '蚵仔煎',
+			},
+			{
+				value: '选项4',
+				label: '龙须面',
+			},
+			{
+				value: '选项5',
+				label: '北京烤鸭',
+			},
+		];
+		const app = Vue.createApp({
+			setup() {
+				const { ref, reactive, nextTick } = Vue;
+				// 房间信息
+				const roomInfo = reactive({
+					list: [],
+					// 显示房间数据
+					showData: function (val = []) {
+						if (this.list.length) {
+							this.list.splice(0);
+						}
+						if (val.length) {
+							this.list.push(...val);
+						}
+					},
+				});
+				// Household 住户信息
+				const householdInfo = reactive({
+					list: [],
+					// 显示
+					showData: function (val = []) {
+						if (this.list.length) {
+							this.list.splice(0);
+						}
+						if (val.length) {
+							this.list.push(...val);
+						}
+					},
+				});
+				// 车位信息
+				const parkingInfo = reactive({
+					list: [],
+					// 显示
+					showData: function (val = []) {
+						if (this.list.length) {
+							this.list.splice(0);
+						}
+						if (val.length) {
+							this.list.push(...val);
+						}
+					},
+				});
+				// 车辆信息
+				const carInfo = reactive({
+					list: [],
+					// 显示
+					showData: function (val = []) {
+						if (this.list.length) {
+							this.list.splice(0);
+						}
+						if (val.length) {
+							this.list.push(...val);
+						}
+					},
+				});
+				// 用水趋势
+				const WaterChart = ref(null);
+				// 用电趋势
+				const ElectricityChart = ref(null);
+				const WaterOption = reactive({
+					xAxis: {
+						type: 'category',
+						data: lineX,
+					},
+					yAxis: {
+						type: 'value',
+					},
+					series: [
+						{
+							data: [820, 932, 901, 934, 1290, 1330, 1320],
+							type: 'line',
+							smooth: true,
+						},
+					],
+				});
+				const ElectricityOption = reactive({
+					xAxis: {
+						type: 'category',
+						data: lineX,
+					},
+					yAxis: {
+						type: 'value',
+					},
+					series: [
+						{
+							data: [820, 932, 901, 934, 1290, 1330, 1320],
+							type: 'line',
+							smooth: true,
+						},
+					],
+				});
+				const creatWaterChart = () => {
+					const wEle = document.getElementById('WaterUsageTrends');
+					WaterChart.value = echarts.init(wEle);
+					WaterChart.value.setOption(WaterOption);
+				};
+				const creatElectricityChart = () => {
+					const eEle = document.getElementById('ElectricityConsumptionTrends');
+					ElectricityChart.value = echarts.init(eEle);
+					ElectricityChart.value.setOption(ElectricityOption);
+				};
+				// AccumulatedPayable 累计应交
+				const AccumulatedPayableEChart = ref(null);
+				// AccumulatedPaid 累计已交
+				const AccumulatedPaidEChart = ref(null);
+				// AccumulatedUnpaid 累计未交
+				const AccumulatedUnpaidEchart = ref(null);
+				const option = reactive({
+					tooltip: {
+						trigger: 'item',
+					},
+					legend: {
+						top: '5%',
+						left: 'center',
+					},
+					series: [
+						{
+							name: 'Access From',
+							type: 'pie',
+							radius: ['40%', '70%'],
+							avoidLabelOverlap: false,
+							itemStyle: {
+								borderRadius: 10,
+								borderColor: '#fff',
+								borderWidth: 2,
+							},
+							label: {
+								show: false,
+								position: 'center',
+							},
+							emphasis: {
+								label: {
+									show: true,
+									fontSize: 40,
+									fontWeight: 'bold',
+								},
+							},
+							labelLine: {
+								show: false,
+							},
+							data: [
+								{ value: 1048, name: 'Search Engine' },
+								{ value: 735, name: 'Direct' },
+								{ value: 580, name: 'Email' },
+								{ value: 484, name: 'Union Ads' },
+								{ value: 300, name: 'Video Ads' },
+							],
+						},
+					],
+				});
+				const createAccumulatedPayableEChart = () => {
+					const AccumulatedPayableEle = document.getElementById('AccumulatedPayable');
+					AccumulatedPayableEChart.value = echarts.init(AccumulatedPayableEle);
+					AccumulatedPayableEChart.value.setOption(option);
+				};
+				const createAccumulatedPaidEleEchart = () => {
+					const AccumulatedPaidEle = document.getElementById('AccumulatedPaid');
+					AccumulatedPaidEChart.value = echarts.init(AccumulatedPaidEle);
+					AccumulatedPaidEChart.value.setOption(option);
+				};
+				const createAccumulatedUnpaidEchart = () => {
+					const AccumulatedUnpaidEle = document.getElementById('AccumulatedUnpaid');
+					AccumulatedUnpaidEchart.value = echarts.init(AccumulatedUnpaidEle);
+					AccumulatedUnpaidEchart.value.setOption(option);
+				};
+				// 支付趋势
+				const PaymentTrendsEchart = ref(null);
+				const PaymentTrendsOption = reactive({
+					xAxis: {
+						type: 'category',
+						data: lineX,
+					},
+					yAxis: {
+						type: 'value',
+					},
+					series: [
+						{
+							data: [820, 932, 901, 934, 1290, 1330, 1320],
+							type: 'line',
+							smooth: true,
+						},
+					],
+				});
+
+				const createPaymentTrendsEchart = () => {
+					const PaymentTrendsEle = document.getElementById('PaymentTrends');
+					PaymentTrendsEchart.value = echarts.init(PaymentTrendsEle);
+					PaymentTrendsEchart.value.setOption(PaymentTrendsOption);
+				};
+
+				// Billing 账单详情
+				const billingInfo = reactive({
+					pageData: [],
+					fullData: [],
+					pageInfo: {},
+					currentPage: 1,
+					pageSize: 10,
+					handleSizeChange: function (val) {
+						console.log(val);
+					},
+					handleCurrentChange: function (pageNo = 1) {
+						if (this.pageData.length) {
+							this.pageData.splice(0);
+						}
+						let offset = (pageNo - 1) * this.pageSize;
+						this.pageData.push(...this.fullData.slice(offset, offset + this.pageSize));
+					},
+					loadData: function (val = []) {
+						if (this.fullData.length) {
+							this.fullData.splice(0);
+						}
+						if (val.length) {
+							this.fullData.push(...val);
+							this.handleCurrentChange();
+						}
+					},
+				});
+				// transitInfo 通行趋势
+				const transitInfo = reactive({
+					TrafficTrendEchart: null,
+					transitInfo_date: '',
+					TrafficTrendOption: {
+						xAxis: {
+							type: 'category',
+							data: lineX,
+						},
+						yAxis: {
+							type: 'value',
+						},
+						series: [
+							{
+								data: [820, 932, 901, 934, 1290, 1330, 1320],
+								type: 'line',
+								smooth: true,
+							},
+						],
+					},
+				});
+				const createTransitInfoEchart = () => {
+					const TrafficTrendEle = document.getElementById('TrafficTrend');
+					transitInfo.TrafficTrendEchart = echarts.init(TrafficTrendEle);
+					transitInfo.TrafficTrendEchart.setOption(transitInfo.TrafficTrendOption);
+				};
+
+				// 已完结
+				const completedEchart = ref(null);
+				const completedOption = reactive({
+					xAxis: {
+						type: 'category',
+						data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+					},
+					yAxis: {
+						type: 'value',
+					},
+					series: [
+						{
+							data: [120, 200, 150, 80, 70, 110, 130],
+							type: 'bar',
+						},
+					],
+				});
+
+				const createCompletedEchart = () => {
+					const CompletedEle = document.getElementById('Completed');
+					completedEchart.value = echarts.init(CompletedEle);
+					completedEchart.value.setOption(completedOption);
+				};
+				// 未完结
+				const unfinishedEchrat = ref(null);
+				const unfinishedOption = reactive({
+					title: {
+						text: 'Referer of a Website',
+						subtext: 'Fake Data',
+						left: 'center',
+					},
+					tooltip: {
+						trigger: 'item',
+					},
+					legend: {
+						orient: 'vertical',
+						left: 'left',
+					},
+					series: [
+						{
+							name: 'Access From',
+							type: 'pie',
+							radius: '50%',
+							data: [
+								{ value: 1048, name: 'Search Engine' },
+								{ value: 735, name: 'Direct' },
+								{ value: 580, name: 'Email' },
+								{ value: 484, name: 'Union Ads' },
+								{ value: 300, name: 'Video Ads' },
+							],
+							emphasis: {
+								itemStyle: {
+									shadowBlur: 10,
+									shadowOffsetX: 0,
+									shadowColor: 'rgba(0, 0, 0, 0.5)',
+								},
+							},
+						},
+					],
+				});
+
+				const createUnfinishedEchart = () => {
+					const unfinishedEle = document.getElementById('unfinished');
+					unfinishedEchrat.value = echarts.init(unfinishedEle);
+					unfinishedEchrat.value.setOption(unfinishedOption);
+				};
+				// 工单
+				const workTickets = reactive({
+					workTicketsTypeValue: '',
+					options: [...fakerOption],
+					date: ['', ''],
+				});
+
+				// RankingOfClassifiedExpenses 分类支出排行
+				const RankingOfClassifiedExpensesEchart = ref(null);
+				const RankingOfClassifiedExpensesOption = reactive({
+					title: {
+						text: 'Referer of a Website',
+						subtext: 'Fake Data',
+						left: 'center',
+					},
+					tooltip: {
+						trigger: 'item',
+					},
+					legend: {
+						orient: 'vertical',
+						left: 'left',
+					},
+					series: [
+						{
+							name: 'Access From',
+							type: 'pie',
+							radius: '50%',
+							data: [
+								{ value: 1048, name: 'Search Engine' },
+								{ value: 735, name: 'Direct' },
+								{ value: 580, name: 'Email' },
+								{ value: 484, name: 'Union Ads' },
+								{ value: 300, name: 'Video Ads' },
+							],
+							emphasis: {
+								itemStyle: {
+									shadowBlur: 10,
+									shadowOffsetX: 0,
+									shadowColor: 'rgba(0, 0, 0, 0.5)',
+								},
+							},
+						},
+					],
+				});
+
+				const createRankingOfClassifiedExpensesEchart = () => {
+					const RankingOfClassifiedExpensesEle = document.getElementById('RankingOfClassifiedExpenses');
+					RankingOfClassifiedExpensesEchart.value = echarts.init(RankingOfClassifiedExpensesEle);
+					RankingOfClassifiedExpensesEchart.value.setOption(RankingOfClassifiedExpensesOption);
+				};
+				// 客户轨迹
+				const CustomerTrajectories = reactive({
+					OperationTime: ['', ''],
+					operatingSystem: '',
+					systemOptions: [...fakerOption],
+					operationType: '',
+					typeOptions: [...fakerOption],
+				});
+				// 基础信息
+				const basicData = ref({});
+				const tableData = reactive([
+					{
+						date: '2016-05-02',
+						name: '王小虎',
+						address: '上海市普陀区金',
+					},
+					{
+						date: '2016-05-04',
+						name: '王小虎',
+						address: '上海市普陀区金沙',
+					},
+					{
+						date: '2016-05-01',
+						name: '王小虎',
+						address: '上海市普陀区金',
+					},
+					{
+						date: '2016-05-03',
+						name: '王小虎',
+						address: '上海市普陀区金',
+					},
+				]);
+
+				nextTick(() => {
+					createTransitInfoEchart();
+					createAccumulatedPayableEChart();
+					createAccumulatedPaidEleEchart();
+					createAccumulatedUnpaidEchart();
+					creatElectricityChart();
+					creatWaterChart();
+					createPaymentTrendsEchart();
+					createTransitInfoEchart();
+					createCompletedEchart();
+					createUnfinishedEchart();
+					createRankingOfClassifiedExpensesEchart();
+				});
+				return {
+					roomInfo,
+					householdInfo,
+					parkingInfo,
+					carInfo,
+					basicData,
+					billingInfo,
+					transitInfo,
+					workTickets,
+					CustomerTrajectories,
+					tableData,
+				};
+			},
 			data: function () {
 				return {
 					visible: false,
-					// 房间信息
-					roomInfo: {
-						list: [],
-						// 显示房间数据
-						showData: function (val = []) {
-							if (this.list.length) {
-								this.list.splice(0);
-							}
-							if (val.length) {
-								this.list.push(...val);
-							}
-						},
-					},
-					// Household 住户信息
-					householdInfo: {
-						list: [],
-						// 显示
-						showData: function (val = []) {
-							if (this.list.length) {
-								this.list.splice(0);
-							}
-							if (val.length) {
-								this.list.push(...val);
-							}
-						},
-					},
-					// 车位信息
-					parkingInfo: {
-						list: [],
-						// 显示
-						showData: function (val = []) {
-							if (this.list.length) {
-								this.list.splice(0);
-							}
-							if (val.length) {
-								this.list.push(...val);
-							}
-						},
-					},
-					// 车辆信息
-					carInfo: {
-						list: [],
-						// 显示
-						showData: function (val = []) {
-							if (this.list.length) {
-								this.list.splice(0);
-							}
-							if (val.length) {
-								this.list.push(...val);
-							}
-						},
-					},
-					// 用水趋势
-					WaterChart: null,
-					// 用电趋势
-					ElectricityChart: null,
-					WaterOption: {
-						xAxis: {
-							type: 'category',
-							data: lineX,
-						},
-						yAxis: {
-							type: 'value',
-						},
-						series: [
-							{
-								data: [820, 932, 901, 934, 1290, 1330, 1320],
-								type: 'line',
-								smooth: true,
-							},
-						],
-					},
-					ElectricityOption: {
-						xAxis: {
-							type: 'category',
-							data: lineX,
-						},
-						yAxis: {
-							type: 'value',
-						},
-						series: [
-							{
-								data: [820, 932, 901, 934, 1290, 1330, 1320],
-								type: 'line',
-								smooth: true,
-							},
-						],
-					},
-					// AccumulatedPayable 累计应交
-					AccumulatedPayableEChart: null,
-					// AccumulatedPaid 累计已交
-					AccumulatedPaidEChart: null,
-					// AccumulatedUnpaid 累计未交
-					AccumulatedUnpaidEchart: null,
-					option: {
-						tooltip: {
-							trigger: 'item',
-						},
-						legend: {
-							top: '5%',
-							left: 'center',
-						},
-						series: [
-							{
-								name: 'Access From',
-								type: 'pie',
-								radius: ['40%', '70%'],
-								avoidLabelOverlap: false,
-								itemStyle: {
-									borderRadius: 10,
-									borderColor: '#fff',
-									borderWidth: 2,
-								},
-								label: {
-									show: false,
-									position: 'center',
-								},
-								emphasis: {
-									label: {
-										show: true,
-										fontSize: 40,
-										fontWeight: 'bold',
-									},
-								},
-								labelLine: {
-									show: false,
-								},
-								data: [
-									{ value: 1048, name: 'Search Engine' },
-									{ value: 735, name: 'Direct' },
-									{ value: 580, name: 'Email' },
-									{ value: 484, name: 'Union Ads' },
-									{ value: 300, name: 'Video Ads' },
-								],
-							},
-						],
-					},
-					// 支付趋势
-					PaymentTrendsEchart: null,
-					PaymentTrendsOption: {
-						xAxis: {
-							type: 'category',
-							data: lineX,
-						},
-						yAxis: {
-							type: 'value',
-						},
-						series: [
-							{
-								data: [820, 932, 901, 934, 1290, 1330, 1320],
-								type: 'line',
-								smooth: true,
-							},
-						],
-					},
-					// Billing 账单详情
-					billingInfo: {
-						pageData: [],
-						fullData: [],
-						pageInfo: {},
-						currentPage: 1,
-						pageSize: 10,
-						handleSizeChange: function (val) {
-							console.log(val);
-						},
-						handleCurrentChange: function (pageNo = 1) {
-							if (this.pageData.length) {
-								this.pageData.splice(0);
-							}
-							let offset = (pageNo - 1) * this.pageSize;
-							this.pageData.push(...this.fullData.slice(offset, offset + this.pageSize));
-						},
-						loadData: function (val = []) {
-							if (this.fullData.length) {
-								this.fullData.splice(0);
-							}
-							if (val.length) {
-								this.fullData.push(...val);
-								this.handleCurrentChange();
-							}
-						},
-					},
-					// transitInfo 通行趋势
-					transitInfo: {
-						TrafficTrendEchart: null,
-						transitInfo_date: '',
-						TrafficTrendOption: {
-							xAxis: {
-								type: 'category',
-								data: lineX,
-							},
-							yAxis: {
-								type: 'value',
-							},
-							series: [
-								{
-									data: [820, 932, 901, 934, 1290, 1330, 1320],
-									type: 'line',
-									smooth: true,
-								},
-							],
-						},
-					},
-					// 已完结
-					completedEchart: null,
-					completedOption: {
-						xAxis: {
-							type: 'category',
-							data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-						},
-						yAxis: {
-							type: 'value',
-						},
-						series: [
-							{
-								data: [120, 200, 150, 80, 70, 110, 130],
-								type: 'bar',
-							},
-						],
-					},
-					// 未完结
-					unfinishedEchrat: null,
-					unfinishedOption: {
-						title: {
-							text: 'Referer of a Website',
-							subtext: 'Fake Data',
-							left: 'center',
-						},
-						tooltip: {
-							trigger: 'item',
-						},
-						legend: {
-							orient: 'vertical',
-							left: 'left',
-						},
-						series: [
-							{
-								name: 'Access From',
-								type: 'pie',
-								radius: '50%',
-								data: [
-									{ value: 1048, name: 'Search Engine' },
-									{ value: 735, name: 'Direct' },
-									{ value: 580, name: 'Email' },
-									{ value: 484, name: 'Union Ads' },
-									{ value: 300, name: 'Video Ads' },
-								],
-								emphasis: {
-									itemStyle: {
-										shadowBlur: 10,
-										shadowOffsetX: 0,
-										shadowColor: 'rgba(0, 0, 0, 0.5)',
-									},
-								},
-							},
-						],
-					},
-					// 工单
-					workTickets: {
-						workTicketsTypeValue: '',
-						options: [
-							{
-								value: '选项1',
-								label: '黄金糕',
-							},
-							{
-								value: '选项2',
-								label: '双皮奶',
-							},
-							{
-								value: '选项3',
-								label: '蚵仔煎',
-							},
-							{
-								value: '选项4',
-								label: '龙须面',
-							},
-							{
-								value: '选项5',
-								label: '北京烤鸭',
-							},
-						],
-						date: ['', ''],
-					},
-					// RankingOfClassifiedExpenses 分类支出排行
-					RankingOfClassifiedExpensesEchart: null,
-					RankingOfClassifiedExpensesOption: {
-						title: {
-							text: 'Referer of a Website',
-							subtext: 'Fake Data',
-							left: 'center',
-						},
-						tooltip: {
-							trigger: 'item',
-						},
-						legend: {
-							orient: 'vertical',
-							left: 'left',
-						},
-						series: [
-							{
-								name: 'Access From',
-								type: 'pie',
-								radius: '50%',
-								data: [
-									{ value: 1048, name: 'Search Engine' },
-									{ value: 735, name: 'Direct' },
-									{ value: 580, name: 'Email' },
-									{ value: 484, name: 'Union Ads' },
-									{ value: 300, name: 'Video Ads' },
-								],
-								emphasis: {
-									itemStyle: {
-										shadowBlur: 10,
-										shadowOffsetX: 0,
-										shadowColor: 'rgba(0, 0, 0, 0.5)',
-									},
-								},
-							},
-						],
-					},
-					// 客户轨迹
-					CustomerTrajectories: {
-						OperationTime: ['', ''],
-						operatingSystem: '',
-						systemOptions: [
-							{
-								value: '选项1',
-								label: '黄金糕',
-							},
-							{
-								value: '选项2',
-								label: '双皮奶',
-							},
-							{
-								value: '选项3',
-								label: '蚵仔煎',
-							},
-							{
-								value: '选项4',
-								label: '龙须面',
-							},
-							{
-								value: '选项5',
-								label: '北京烤鸭',
-							},
-						],
-						operationType: '',
-						typeOptions: [
-							{
-								value: '选项1',
-								label: '黄金糕',
-							},
-							{
-								value: '选项2',
-								label: '双皮奶',
-							},
-							{
-								value: '选项3',
-								label: '蚵仔煎',
-							},
-							{
-								value: '选项4',
-								label: '龙须面',
-							},
-							{
-								value: '选项5',
-								label: '北京烤鸭',
-							},
-						],
-					},
-					tableData: [
-						{
-							date: '2016-05-02',
-							name: '王小虎',
-							address: '上海市普陀区金',
-						},
-						{
-							date: '2016-05-04',
-							name: '王小虎',
-							address: '上海市普陀区金沙',
-						},
-						{
-							date: '2016-05-01',
-							name: '王小虎',
-							address: '上海市普陀区金',
-						},
-						{
-							date: '2016-05-03',
-							name: '王小虎',
-							address: '上海市普陀区金',
-						},
-					],
-					// 基础信息
-					basicData: {},
+
 					// 获取基础信息
 					getBasicInfo: function () {
 						axios({
@@ -755,48 +802,13 @@
 			},
 			created: function () {
 				console.log('created');
-				this.getBasicInfo();
+				// this.getBasicInfo();
 			},
 			mounted: function () {
-				const AccumulatedPayableEle = document.getElementById('AccumulatedPayable');
-				const AccumulatedPaidEle = document.getElementById('AccumulatedPaid');
-				const AccumulatedUnpaidEle = document.getElementById('AccumulatedUnpaid');
-				this.AccumulatedPaidEChart = echarts.init(AccumulatedPaidEle);
-				this.AccumulatedPayableEChart = echarts.init(AccumulatedPayableEle);
-				this.AccumulatedUnpaidEchart = echarts.init(AccumulatedUnpaidEle);
-				this.AccumulatedPaidEChart.setOption(this.option);
-				this.AccumulatedPayableEChart.setOption(this.option);
-				this.AccumulatedUnpaidEchart.setOption(this.option);
-
-				const wEle = document.getElementById('WaterUsageTrends');
-				const eEle = document.getElementById('ElectricityConsumptionTrends');
-				this.WaterChart = echarts.init(wEle);
-				this.WaterChart.setOption(this.WaterOption);
-				this.ElectricityChart = echarts.init(eEle);
-				this.ElectricityChart.setOption(this.ElectricityOption);
-
-				const PaymentTrendsEle = document.getElementById('PaymentTrends');
-				this.PaymentTrendsEchart = echarts.init(PaymentTrendsEle);
-				this.PaymentTrendsEchart.setOption(this.PaymentTrendsOption);
-
-				// TrafficTrend
-				const TrafficTrendEle = document.getElementById('TrafficTrend');
-				this.transitInfo.TrafficTrendEchart = echarts.init(TrafficTrendEle);
-				this.transitInfo.TrafficTrendEchart.setOption(this.transitInfo.TrafficTrendOption);
-				// Completed
-				const CompletedEle = document.getElementById('Completed');
-				this.completedEchart = echarts.init(CompletedEle);
-				this.completedEchart.setOption(this.completedOption);
-				// Completed
-				const unfinishedEle = document.getElementById('unfinished');
-				this.unfinishedEchart = echarts.init(unfinishedEle);
-				this.unfinishedEchart.setOption(this.unfinishedOption);
-				// Completed
-				const RankingOfClassifiedExpensesEle = document.getElementById('RankingOfClassifiedExpenses');
-				this.RankingOfClassifiedExpensesEchart = echarts.init(RankingOfClassifiedExpensesEle);
-				this.RankingOfClassifiedExpensesEchart.setOption(this.RankingOfClassifiedExpensesOption);
 				console.log('mounted');
 			},
 		});
+		app.use(ElementPlus, { locale: ElementPlusLocaleZhCn });
+		app.mount('#app');
 	</script>
 </html>

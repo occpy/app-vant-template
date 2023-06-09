@@ -60,7 +60,7 @@
 									<span>住户({{householdInfo.list.length}})</span>
 								</template>
 								<div class="body-card">
-									<el-table :data="householdInfo.list" style="margin-top: -40px !important">
+									<el-table :data="householdInfo.list" style="margin-top: -20px !important">
 										<el-table-column prop="date" label="">
 											<template slot-scope="scope">
 												<el-avatar icon="el-icon-user-solid" :size="24"></el-avatar>
@@ -78,7 +78,7 @@
 									<span>车位({{parkingInfo.list.length}})</span>
 								</template>
 								<div class="body-card">
-									<el-table :data="parkingInfo.list" style="margin-top: -40px !important">
+									<el-table :data="parkingInfo.list" style="margin-top: -20px !important">
 										<el-table-column prop="date" label="">
 											<template slot-scope="scope"> <el-avatar :size="20"> P </el-avatar> </template></el-table-column
 										>
@@ -94,7 +94,7 @@
 									<span>车辆({{carInfo.list.length}})</span>
 								</template>
 								<div class="body-card">
-									<el-table :data="carInfo.list" style="margin-top: -40px !important">
+									<el-table :data="carInfo.list" style="margin-top: -20px !important">
 										<el-table-column prop="date" label="">
 											<template slot-scope="scope">
 												<i class="el-icon-truck"></i>
@@ -735,7 +735,60 @@
 						address: '上海市普陀区金',
 					},
 				]);
-
+				// 获取基础信息
+				const getBasicInfo = () => {
+					axios({
+						method: 'get',
+						url: 'http://localhost:8083/data/person/foundation',
+						data: { feId: '1' },
+						Headers: { 'Content-Type': 'application/json' },
+					}).then(
+						(
+							res = {
+								data: {
+									data: {
+										basicInfo,
+										roomInfo,
+										parkingInfo,
+										carInfo,
+										members,
+										contractInfo,
+										accountInfo,
+										customerOrgVo,
+										enterpriseEmployees,
+									},
+								},
+							}
+						) => {
+							if (res.data.data) {
+								console.log(res.data.data);
+								Object.assign(basicData.value, res.data.data.basicInfo);
+								parkingInfo.showData(res.data.data.parkingInfo ?? []);
+								carInfo.showData(res.data.data.carInfo ?? []);
+								roomInfo.showData(res.data.data.roomInfo ?? []);
+								householdInfo.showData(res.data.data.members ?? []);
+								// this.basicData = res.data.basicInfo;
+								// this.parkingInfo.showData(res.data.parkingInfo);
+								// this.carInfo.showData(res.data.carInfo);
+								// this.enterpriseShareholdersInfo.showData(res.data.enterpriseEmployees);
+								// this.personnelInformation.loadData(res.data.customerOrgVo);
+								// this.personnelInformation.showEchart();
+								// this.fees.showEchart();
+							}
+							// this.roomInfo.showData(res.data.data.roomInfo);
+							// this.householdInfo.showData(res.data.data.members);
+							// this.parkingInfo.showData(res.data.data.parkingInfo);
+							// this.carInfo.showData(res.data.data.carInfo);
+							// this.basicData = res.data.data.basicInfo;
+							// this.roomInfoTable.loadData(res.data.data.roomInfo);
+							// this.parking.loadData(res.data.data.parkingInfo);
+							// this.carInfo.loadData(res.data.data.carInfo);
+							// this.membersInfo.loadData(res.data.data.members);
+							// this.contractInfo.loadData(res.data.data.contractInfo);
+							// this.accountInfo.loadData(res.data.data.accountInfo);
+						}
+					);
+				};
 				nextTick(() => {
 					createTransitInfoEchart();
 					createAccumulatedPayableEChart();
@@ -748,6 +801,7 @@
 					createCompletedEchart();
 					createUnfinishedEchart();
 					createRankingOfClassifiedExpensesEchart();
+					getBasicInfo();
 				});
 				return {
 					roomInfo,

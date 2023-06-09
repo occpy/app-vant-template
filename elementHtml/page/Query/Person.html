@@ -29,7 +29,7 @@
 				<el-descriptions title="基础信息" :border="true" :column="3">
 					<el-descriptions-item label="姓名">{{ basicData["customerName"]}}</el-descriptions-item>
 					<el-descriptions-item label="客户代码">18100000000</el-descriptions-item>
-					<el-descriptions-item label="性别">{{ basicData["sex"]}}</el-descriptions-item>
+					<el-descriptions-item label="性别">{{ computGender(basicData["sex"]).label}}</el-descriptions-item>
 					<el-descriptions-item label="身份证号">{{ basicData["idCardNo"]}}</el-descriptions-item>
 					<el-descriptions-item label="出生年月">{{ basicData["birthDate"]}}</el-descriptions-item>
 					<el-descriptions-item label="年龄">{{ basicData["age"]}}</el-descriptions-item>
@@ -40,11 +40,15 @@
 					<el-descriptions-item label="紧急联系人电话" :span="2"
 						>{{ basicData["emergencyContactPhone"]}}</el-descriptions-item
 					>
-					<el-descriptions-item label="创建来源">{{ basicData["createSource"]}}</el-descriptions-item>
+					<el-descriptions-item label="创建来源"
+						>{{ computSystem(basicData["createSource"]).label}}</el-descriptions-item
+					>
 					<el-descriptions-item label="创建日期">{{ basicData["createdDate"]}}</el-descriptions-item>
 					<el-descriptions-item label="创建人">{{ basicData["createdBy"]}}</el-descriptions-item>
-					<el-descriptions-item label="客户类型">{{ basicData["customerType"]}}</el-descriptions-item>
-					<el-descriptions-item label="客户等级">{{ basicData["customerGrade"]}}</el-descriptions-item>
+					<el-descriptions-item label="客户类型">{{ computType(basicData["customerType"]).label}}</el-descriptions-item>
+					<el-descriptions-item label="客户等级"
+						>{{ computGrade(basicData["customerGrade"]).label}}</el-descriptions-item
+					>
 					<el-descriptions-item label="职业">{{ basicData["customerGrade"]}}</el-descriptions-item>
 					<el-descriptions-item label="业主姓名">{{ basicData["customerGrade"]}}</el-descriptions-item>
 					<el-descriptions-item label="业主联系电话">{{ basicData["customerGrade"]}}</el-descriptions-item>
@@ -53,8 +57,10 @@
 					<el-descriptions-item label="岗位">{{ basicData["post"]}}</el-descriptions-item>
 					<el-descriptions-item label="企业邮箱">{{ basicData["enterpriseMailbox"]}}</el-descriptions-item>
 					<el-descriptions-item label="内部跟进人">{{ basicData["follower"]}}</el-descriptions-item>
-					<el-descriptions-item label="是否退园">{{ basicData["isRetirement"]}}</el-descriptions-item>
-					<el-descriptions-item label="客户状态">{{ basicData["state"]}}</el-descriptions-item>
+					<el-descriptions-item label="是否退园"
+						>{{ computOutYuan(basicData["isRetirement"]).label}}</el-descriptions-item
+					>
+					<el-descriptions-item label="客户状态">{{computState(basicData["state"]).label}}</el-descriptions-item>
 					<el-descriptions-item label="备注" :span="3">{{ basicData["remarks"]}}</el-descriptions-item>
 					<el-descriptions-item label="标签" :span="3">{{ basicData["label"]}}</el-descriptions-item>
 					<el-descriptions-item label="人脸" :span="3">
@@ -72,7 +78,7 @@
 					<template #header class="clearfix">
 						<span>房间信息</span>
 					</template>
-					<el-table :data="roomInfoTable.pageData" :border="true" style="width: 100%">
+					<el-table :data="roomInfoTable.fullData" :border="true" style="width: 100%">
 						<el-table-column prop="region" label="区域"> </el-table-column>
 						<el-table-column prop="building" label="楼栋"> </el-table-column>
 						<el-table-column prop="unit" label="单元"> </el-table-column>
@@ -98,7 +104,7 @@
 					<template #header class="clearfix">
 						<span>车位信息</span>
 					</template>
-					<el-table :data="parking.pageData" :border="true" style="width: 100%">
+					<el-table :data="parking.fullData" :border="true" style="width: 100%">
 						<el-table-column prop="parkingSpaceNo" label="车位编号"> </el-table-column>
 						<el-table-column prop="region" label="区域"> </el-table-column>
 						<el-table-column prop="holdingNature" label="持有特性"> </el-table-column>
@@ -121,7 +127,7 @@
 					<template #header class="clearfix">
 						<span>车辆信息</span>
 					</template>
-					<el-table :data="carInfo.pageData" :border="true" style="width: 100%">
+					<el-table :data="carInfo.fullData" :border="true" style="width: 100%">
 						<el-table-column prop="carNumber" label="车辆号"> </el-table-column>
 						<el-table-column prop="isNewEnergy" label="是否新能源"> </el-table-column>
 						<el-table-column prop="accessRight" label="通行权限"> </el-table-column>
@@ -143,7 +149,7 @@
 					<template #header class="clearfix">
 						<span>账户信息</span>
 					</template>
-					<el-table :data="accountInfo.pageData" :border="true" style="width: 100%">
+					<el-table :data="accountInfo.fullData" :border="true" style="width: 100%">
 						<el-table-column prop="username" label="用户名"> </el-table-column>
 						<el-table-column prop="phone" label="手机号码"> </el-table-column>
 						<el-table-column prop="address" label="注册渠道"> </el-table-column>
@@ -166,7 +172,7 @@
 					<template #header class="clearfix">
 						<span>家庭信息</span>
 					</template>
-					<el-table :data="membersInfo.pageData" :border="true" style="width: 100%">
+					<el-table :data="membersInfo.fullData" :border="true" style="width: 100%">
 						<el-table-column prop="name" label="姓名"> </el-table-column>
 						<el-table-column prop="relationship" label="与业主关系"> </el-table-column>
 						<el-table-column prop="" label="是否注册账号"> </el-table-column>
@@ -190,7 +196,7 @@
 				<template #header class="clearfix">
 					<span>合同信息</span>
 				</template>
-				<el-table :data="contractInfo.pageData" :border="true" style="width: 100%">
+				<el-table :data="contractInfo.fullData" :border="true" style="width: 100%">
 					<el-table-column prop="contractType" label="合同类型"> </el-table-column>
 					<el-table-column prop="contractNo" label="合同编号"> </el-table-column>
 					<el-table-column prop="contractName" label="合同名称"> </el-table-column>
@@ -481,6 +487,115 @@
 	<!-- axios -->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script>
+		// 状态
+		const state = [
+			{
+				label: '正常',
+				value: 1,
+			},
+			{
+				label: '部分黑名单',
+				value: 2,
+			},
+			{
+				label: '黑名单',
+				value: 3,
+			},
+		];
+		// 是否退园
+		const outYuan = [
+			{
+				label: '在园',
+				value: 1,
+			},
+			{
+				label: '退园',
+				value: 2,
+			},
+			{
+				label: '其他',
+				value: 99,
+			},
+		];
+		// 客户等级
+		const grade = [
+			{ label: '无效客户', value: 1 },
+			{ label: '潜在客户', value: 2 },
+			{ label: '线索客户', value: 3 },
+			{ label: '意向客户', value: 4 },
+			{ label: '成交客户', value: 5 },
+			{ label: '其他', value: 99 },
+		];
+		// 性别
+		const gender = [
+			{
+				label: '男',
+				value: 1,
+			},
+			{
+				label: '女',
+				value: 0,
+			},
+		];
+		// 客户类型
+		const type = [
+			{
+				label: '企业',
+				value: 1,
+			},
+			{
+				label: '企业员工',
+				value: 2,
+			},
+			{
+				label: '业主',
+				value: 3,
+			},
+			{
+				label: '租客',
+				value: 4,
+			},
+			{
+				label: '家属',
+				value: 5,
+			},
+			{
+				label: '普通客户',
+				value: 6,
+			},
+		];
+		//  系统来源
+		const sourceSystem = [
+			{ value: 1, label: '停车管理系统' },
+			{ value: 2, label: '智慧通行系统' },
+			{
+				value: 3,
+				label: '综合安防系统',
+			},
+			{ value: 4, label: '能效管理系统' },
+			{ value: 5, label: '环境空间系统' },
+			{
+				value: 6,
+				label: '楼宇自控系统  (BA)',
+			},
+			{ value: 7, label: '设施管理系统' },
+			{ value: 8, label: '数字孪生管理' },
+			{ value: 9, label: '房屋销售系统' },
+			{
+				value: 10,
+				label: '商业租赁系统',
+			},
+			{ value: 11, label: '公寓租赁系统' },
+			{ value: 12, label: '客户关系管理系统' },
+			{
+				value: 13,
+				label: '智慧物业管理系统',
+			},
+			{ value: 14, label: '领导驾驶舱' },
+		];
+	</script>
+	<script></script>
+	<script>
 		// 月份
 		const lineX = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
 		// 虚拟下拉列表
@@ -508,6 +623,42 @@
 		];
 		const app = Vue.createApp({
 			setup() {
+				// 计算状态
+				const computState = (val = 1) => {
+					return state.find((v) => {
+						return v.value == val;
+					});
+				};
+				// 计算是否退园
+				const computOutYuan = (val = 1) => {
+					return outYuan.find((v) => {
+						return v.value == val;
+					});
+				};
+				// 计算等级
+				const computGrade = (val = 1) => {
+					return grade.find((v) => {
+						return v.value == val;
+					});
+				};
+				// 计算性别
+				const computGender = (val = 1) => {
+					return gender.find((v) => {
+						return v.value == val;
+					});
+				};
+				// 计算类型
+				const computType = (val = 1) => {
+					return type.find((v) => {
+						return v.value == val;
+					});
+				};
+				// 计算来源
+				const computSystem = (val = 1) => {
+					return sourceSystem.find((v) => {
+						return v.value == val;
+					});
+				};
 				const { ref, reactive, nextTick } = Vue;
 				// 房间信息
 				const roomInfoTable = reactive({
@@ -763,9 +914,67 @@
 						address: '上海市普陀区金沙江路 1516 弄',
 					},
 				]);
+				// 获取基础信息
+				const getBasicInfo = () => {
+					axios({
+						method: 'get',
+						url: 'http://localhost:8083/data/person/foundation',
+						data: { feId: '1' },
+						Headers: { 'Content-Type': 'application/json' },
+					}).then(
+						(
+							res = {
+								data: {
+									data: {
+										basicInfo,
+										roomInfo,
+										parkingInfo,
+										carInfo,
+										members,
+										contractInfo,
+										accountInfo,
+										customerOrgVo,
+										enterpriseEmployees,
+									},
+								},
+							}
+						) => {
+							if (res.data.data) {
+								console.log(res.data.data);
+								Object.assign(basicData.value, res.data.data.basicInfo);
+								// parkingInfo.showData(res.data.data.parkingInfo ?? []);
+								parking.loadData(res.data.data.parkingInfo ?? []);
+								carInfo.loadData(res.data.data.carInfo ?? []);
+								roomInfoTable.loadData(res.data.data.roomInfo ?? []);
+								contractInfo.loadData(res.data.data.contractInfo ?? []);
+								membersInfo.loadData(res.data.data.members ?? []);
+								// householdInfo.showData(res.data.data.members ?? []);
+								// this.basicData = res.data.basicInfo;
+								// this.parkingInfo.showData(res.data.parkingInfo);
+								// this.carInfo.showData(res.data.carInfo);
+								// this.enterpriseShareholdersInfo.showData(res.data.enterpriseEmployees);
+								// this.personnelInformation.loadData(res.data.customerOrgVo);
+								// this.personnelInformation.showEchart();
+								// this.fees.showEchart();
+							}
+							// this.roomInfo.showData(res.data.data.roomInfo);
+							// this.householdInfo.showData(res.data.data.members);
+							// this.parkingInfo.showData(res.data.data.parkingInfo);
+							// this.carInfo.showData(res.data.data.carInfo);
+							// this.basicData = res.data.data.basicInfo;
+							// this.roomInfoTable.loadData(res.data.data.roomInfo);
+							// this.parking.loadData(res.data.data.parkingInfo);
+							// this.carInfo.loadData(res.data.data.carInfo);
+							// this.membersInfo.loadData(res.data.data.members);
+							// this.contractInfo.loadData(res.data.data.contractInfo);
+							// this.accountInfo.loadData(res.data.data.accountInfo);
+						}
+					);
+				};
 				nextTick(() => {
 					creatElectricityChart();
 					creatWaterChart();
+					getBasicInfo();
 				});
 				return {
 					roomInfoTable,
@@ -783,6 +992,12 @@
 					basicData,
 					accountInfo,
 					tableData,
+					computState,
+					computOutYuan,
+					computGrade,
+					computGender,
+					computType,
+					computSystem,
 				};
 			},
 			data: function () {

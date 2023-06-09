@@ -36,7 +36,7 @@
 						></el-image
 					></el-descriptions-item>
 					<el-descriptions-item label="客户类型">{{ basicData["customerType"]}}</el-descriptions-item>
-					<el-descriptions-item label="企业状态">{{ basicData["enterpriseStatus"]}}</el-descriptions-item>
+					<el-descriptions-item label="企业状态">{{computState(basicData["enterpriseStatus"]) }}</el-descriptions-item>
 					<el-descriptions-item label="分公司">{{ basicData["branchOffice"]}}</el-descriptions-item>
 					<el-descriptions-item label="入驻园区">{{ basicData["settlePark"]}}</el-descriptions-item>
 					<el-descriptions-item label="入驻时间">{{ basicData["settleDate"]}}</el-descriptions-item>
@@ -111,7 +111,7 @@
 					<template #header class="clearfix">
 						<span>房间信息</span>
 					</template>
-					<el-table :data="roomInfoTable.pageData" :border="true" style="width: 100%">
+					<el-table :data="roomInfoTable.fullData" :border="true" style="width: 100%">
 						<el-table-column prop="region" label="区域"> </el-table-column>
 						<el-table-column prop="building" label="楼栋"> </el-table-column>
 						<el-table-column prop="unit" label="单元"> </el-table-column>
@@ -137,7 +137,7 @@
 					<template #header class="clearfix">
 						<span>车位信息</span>
 					</template>
-					<el-table :data="parking.pageData" :border="true" style="width: 100%">
+					<el-table :data="parking.fullData" :border="true" style="width: 100%">
 						<el-table-column prop="parkingSpaceNo" label="车位编号"> </el-table-column>
 						<el-table-column prop="region" label="区域"> </el-table-column>
 						<el-table-column prop="holdingNature" label="持有特性"> </el-table-column>
@@ -160,7 +160,7 @@
 					<template #header class="clearfix">
 						<span>车辆信息</span>
 					</template>
-					<el-table :data="carInfo.pageData" :border="true" style="width: 100%">
+					<el-table :data="carInfo.fullData" :border="true" style="width: 100%">
 						<el-table-column prop="carNumber" label="车辆号"> </el-table-column>
 						<el-table-column prop="isNewEnergy" label="是否新能源"> </el-table-column>
 						<el-table-column prop="accessRight" label="通行权限"> </el-table-column>
@@ -283,7 +283,7 @@
 				<template #header class="clearfix">
 					<span>合同信息</span>
 				</template>
-				<el-table :data="contractInfo.pageData" :border="true" style="width: 100%">
+				<el-table :data="contractInfo.fullData" :border="true" style="width: 100%">
 					<el-table-column prop="contractType" label="合同类型"> </el-table-column>
 					<el-table-column prop="contractNo" label="合同编号"> </el-table-column>
 					<el-table-column prop="contractName" label="合同名称"> </el-table-column>
@@ -573,6 +573,29 @@
 	<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.2/echarts.common.min.js"></script>
 	<!-- axios -->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		const state = [
+			{
+				label: '正常',
+				value: 1,
+			},
+			{
+				label: '部分黑名单',
+				value: 2,
+			},
+			{
+				label: '黑名单',
+				value: 3,
+			},
+		];
+	</script>
+	<script>
+		const computState = (val = 1) => {
+			return state.find((value) => {
+				return value.value == val;
+			});
+		};
+	</script>
 	<script>
 		// 月份
 		const lineX = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
@@ -913,9 +936,66 @@
 						address: '上海市普陀区金沙江路 1516 弄',
 					},
 				]);
+				// 获取基础信息
+				const getBasicInfo = () => {
+					axios({
+						method: 'get',
+						url: 'http://localhost:8083/data/person/foundation',
+						data: { feId: '1' },
+						Headers: { 'Content-Type': 'application/json' },
+					}).then(
+						(
+							res = {
+								data: {
+									data: {
+										basicInfo,
+										roomInfo,
+										parkingInfo,
+										carInfo,
+										members,
+										contractInfo,
+										accountInfo,
+										customerOrgVo,
+										enterpriseEmployees,
+									},
+								},
+							}
+						) => {
+							if (res.data.data) {
+								console.log(res.data.data);
+								Object.assign(basicData.value, res.data.data.basicInfo);
+								// parkingInfo.showData(res.data.data.parkingInfo ?? []);
+								parking.loadData(res.data.data.parkingInfo ?? []);
+								carInfo.loadData(res.data.data.carInfo ?? []);
+								roomInfoTable.loadData(res.data.data.roomInfo ?? []);
+								contractInfo.loadData(res.data.data.contractInfo ?? []);
+								// householdInfo.showData(res.data.data.members ?? []);
+								// this.basicData = res.data.basicInfo;
+								// this.parkingInfo.showData(res.data.parkingInfo);
+								// this.carInfo.showData(res.data.carInfo);
+								// this.enterpriseShareholdersInfo.showData(res.data.enterpriseEmployees);
+								// this.personnelInformation.loadData(res.data.customerOrgVo);
+								// this.personnelInformation.showEchart();
+								// this.fees.showEchart();
+							}
+							// this.roomInfo.showData(res.data.data.roomInfo);
+							// this.householdInfo.showData(res.data.data.members);
+							// this.parkingInfo.showData(res.data.data.parkingInfo);
+							// this.carInfo.showData(res.data.data.carInfo);
+							// this.basicData = res.data.data.basicInfo;
+							// this.roomInfoTable.loadData(res.data.data.roomInfo);
+							// this.parking.loadData(res.data.data.parkingInfo);
+							// this.carInfo.loadData(res.data.data.carInfo);
+							// this.membersInfo.loadData(res.data.data.members);
+							// this.contractInfo.loadData(res.data.data.contractInfo);
+							// this.accountInfo.loadData(res.data.data.accountInfo);
+						}
+					);
+				};
 				nextTick(() => {
 					creatElectricityChart();
 					creatWaterChart();
+					getBasicInfo();
 				});
 				return {
 					basicData,
@@ -991,7 +1071,7 @@
 			},
 			created: function () {
 				console.log('created');
-				this.getBaseData();
+				// this.getBaseData();
 			},
 			mounted: function () {},
 		});
